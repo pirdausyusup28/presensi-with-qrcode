@@ -1,0 +1,3 @@
+qrcode.result = "error decoding QR Code";
+//...
+qrcode.callback("Failed to load the image");
