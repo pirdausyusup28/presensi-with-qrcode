@@ -29,14 +29,14 @@
 </head>
 
 <!-- [ auth-signup ] start -->
-<div class="auth-wrapper">
+<div class="auth-wrapper" style="background-color:white">
 	<div class="">
 		<div class="card">
 			<div class="row align-items-center text-center">
 				<div class="col-md-12">
 					<div class="card-body">
-						<img src="<?= base_url(); ?>assets/img/logo pesantren.png" alt="" class="img-fluid mb-4" width="30%">
-						<h4 class="mb-3 f-w-400">SMA ISLAM PESANTREN PUTRI AS-SYAFI'IYAH 04</h4>
+						<!-- <img src="<?= base_url(); ?>assets/img/logo pesantren.png" alt="" class="img-fluid mb-4" width="30%"> -->
+						<h4 class="mb-3 f-w-400">Aplikasi Sistem Absensi SDIT Ruhama Depok</h4>
 						<form class="login" action="<?= base_url('Admin/cek_login'); ?>" method="post">
 							<div class="form-group mb-3">
 								<label class="floating-label" for="Username">Username</label>

@@ -12,9 +12,16 @@ class Admin extends CI_Controller {
 
 	public function index()
 	{
-		$this->load->view('admin/header');
+		$this->load->view('admin/header_new');
 		$this->load->view('admin/admin/viewdatapesanan');
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer_new');
+	}
+
+	public function dashboard()
+	{
+		$this->load->view('admin/header_new');
+		$this->load->view('admin/viewdashboard');
+		$this->load->view('admin/footer_new');
 	}
 
 /////////////////////////// USER //////////////////////////////////////////////	
@@ -23,9 +30,9 @@ class Admin extends CI_Controller {
 	{
 		if($this->session->userdata('username') != '' ){
 			$data['user'] = $this->Muser->getdata();
-			$this->load->view('admin/header');
+			$this->load->view('admin/header_new');
 			$this->load->view('admin/viewdatauser',$data);
-			$this->load->view('admin/footer');
+			$this->load->view('admin/footer_new');
 		}else{
 			$this->session->sess_destroy();
 			redirect('Admin/login','refresh');
@@ -35,9 +42,9 @@ class Admin extends CI_Controller {
 
 	public function formtambahuser()
 	{
-		$this->load->view('admin/header');
+		$this->load->view('admin/header_new');
 		$this->load->view('admin/viewtambahuser');
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer_new');
 	}
 
 	public function savedatauser()
@@ -63,9 +70,9 @@ class Admin extends CI_Controller {
 	public function edituser($id)
 	{
 		$data['user'] = $this->Muser->getdataedit($id);
-		$this->load->view('admin/header');
+		$this->load->view('admin/header_new');
 		$this->load->view('admin/viewedituser',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer_new');
 	}
 
 	public function updatedatauser()
@@ -109,16 +116,16 @@ class Admin extends CI_Controller {
 	public function presensi(){
 		$data['presensi'] = $this->Madmin->getpresensi();
 		$data['presensi_ap'] = $this->Madmin->getpresensi_ap();
-		$this->load->view('admin/header');
+		$this->load->view('admin/header_new');
 		$this->load->view('admin/datapresensi',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer_new');
 	}
 
 	public function laporanpresensi(){
 		$data['nip'] = $this->Madmin->getdataguru();
-		$this->load->view('admin/header');
+		$this->load->view('admin/header_new');
 		$this->load->view('admin/laporanpresensi',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer_new');
 	}
 
 	public function approve($nip){
@@ -163,16 +170,16 @@ class Admin extends CI_Controller {
 public function dataguru()
 {
 	$data['guru'] = $this->Madmin->getdataguru();
-	$this->load->view('admin/header');
+	$this->load->view('admin/header_new');
 	$this->load->view('admin/viewdataguru',$data);
-	$this->load->view('admin/footer');
+	$this->load->view('admin/footer_new');
 }
 
 public function formtambahguru()
 {
-	$this->load->view('admin/header');
+	$this->load->view('admin/header_new');
 	$this->load->view('admin/viewtambahguru');
-	$this->load->view('admin/footer');
+	$this->load->view('admin/footer_new');
 }
 
 public function savedataguru()
@@ -199,9 +206,9 @@ public function savedataguru()
 public function editguru($id)
 {
 	$data['guru'] = $this->Madmin->getdataedit($id);
-	$this->load->view('admin/header');
+	$this->load->view('admin/header_new');
 	$this->load->view('admin/vieweditguru',$data);
-	$this->load->view('admin/footer');
+	$this->load->view('admin/footer_new');
 }
 
 public function updatedataguru()
@@ -244,16 +251,16 @@ public function hapusdataguru($id)
 /////////////////////////// GENERATE QR CODE //////////////////////////////////
 	public function generateqrcode(){
 		$data['qrcode'] = $this->Madmin->getdataqrcode();
-		$this->load->view('admin/header');
+		$this->load->view('admin/header_new');
 		$this->load->view('admin/viewgenerateqrcode',$data);
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer_new');
 	}
 
 	public function formtambahqrcode()
 	{
-		$this->load->view('admin/header');
+		$this->load->view('admin/header_new');
 		$this->load->view('admin/viewtambahgenerateqrcode');
-		$this->load->view('admin/footer');
+		$this->load->view('admin/footer_new');
 	}
 
 	public function simpanqrcode()
@@ -315,9 +322,9 @@ public function hapusdataguru($id)
 /////////////////////////// BERANDA  ///////////////////////////////////////////////////
 function beranda() {
 	$data["pres"] = $data['presensi'] = $this->Madmin->getpresensiapprove();
-	$this->load->view('admin/header');
+	$this->load->view('admin/header_new');
 	$this->load->view('admin/viewberanda',$data);
-	$this->load->view('admin/footer');
+	$this->load->view('admin/footer_new');
 }
 /////////////////////////// BATAS BERANDA  //////////////////////////////////////////////
 
@@ -344,7 +351,7 @@ function beranda() {
 			if($this->session->userdata('username') == ''){
 				redirect('Admin/login');
 			}else{
-				redirect('Admin/datauser');
+				redirect('Admin/dashboard');
 			}
 				
 		}

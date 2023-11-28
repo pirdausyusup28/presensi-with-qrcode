@@ -64,13 +64,22 @@
 					    <a href="<?= base_url('Admin/beranda'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Beranda</span></a>
 					</li>
 					<li class="nav-item">
-					    <a href="<?= base_url('Admin/generateqrcode'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Generate QrCode</span></a>
+					    <a href="<?= base_url('Admin/generateqrcode'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Generate QrCode Guru</span></a>
+					</li>
+					<li class="nav-item">
+					    <a href="<?= base_url('Admin/generateqrcode'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Generate QrCode Siswa</span></a>
 					</li>
 					<li class="nav-item">
 					    <a href="<?= base_url('Admin/dataguru'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Data Guru</span></a>
 					</li>
 					<li class="nav-item">
+					    <a href="<?= base_url('Admin/dataguru'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Data Siswa</span></a>
+					</li>
+					<li class="nav-item">
 					    <a href="<?= base_url('Admin/presensi'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Data Presensi Guru</span></a>
+					</li>
+					<li class="nav-item">
+					    <a href="<?= base_url('Admin/presensi'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Data Presensi Siswa</span></a>
 					</li>
 					<li class="nav-item">
 					    <a href="<?= base_url('Admin/laporanpresensi'); ?>" class="nav-link" style="background: #3aaa36;color:white;"><span class="pcoded-micon"><i class="feather icon-home"></i></span><span class="pcoded-mtext">Laporan</span></a>

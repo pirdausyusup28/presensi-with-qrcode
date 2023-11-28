@@ -1,36 +1,21 @@
-<!-- [ Main Content ] start -->
-<section class="pcoded-main-container">
-    <div class="pcoded-content">
-        <!-- [ breadcrumb ] start -->
-        <div class="page-header">
-            <div class="page-block">
-                <div class="row align-items-center">
-                    <div class="col-md-12">
-                        <div class="page-header-title">
-                            <h5 class="m-b-10">Data Qr Code    </h5>
-                        </div>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="index.html"><i class="feather icon-home"></i></a></li>
-                            <li class="breadcrumb-item"><a href="#!">Table Qr Code </a></li>
-                            <li class="breadcrumb-item"><a href="#!">Qr Code</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- [ breadcrumb ] end -->
-        <!-- [ Main Content ] start -->
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <div class="card-header">
+<!-- Content wrapper -->
+<div class="content-wrapper">
+<!-- Content -->
+
+<div class="container-xxl flex-grow-1 container-p-y">
+    <div class="row">
+        <div class="col-lg-12 col-md-4 order-1">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-6 mb-4">
+                    <div class="card">
+                        <div class="card-header">
                         <h5>List Data Qr Code  </h5>
                         <a href="<?= base_url('Admin/formtambahqrcode '); ?>" class="btn btn-primary btn-sm">Tambah Qr Code</a>
-                        <a href="<?= base_url('Absen/sqanqrcode '); ?>" class="btn btn-success btn-sm">Absen Scan QrCode</a>
-                    </div>
-                    <div class="card-body table-border-style">
-                        <div class="table-responsive">
-                            <table class="table table-striped">
+                        <a href="<?= base_url('Absen/sqanqrcode '); ?>" class="btn btn-success btn-sm" target="_blank">Absen Scan QrCode</a>
+                        </div>
+                        <div class="card-body">
+                            <div class="card-title d-flex align-items-start justify-content-between">
+                                <table class="table table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
@@ -56,12 +41,13 @@
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>
-                            </table>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- [ Main Content ] end -->
     </div>
-</section>
+</div>
+<!-- / Content -->
