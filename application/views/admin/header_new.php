@@ -101,6 +101,14 @@
               </a>
             </li>
             <li class="menu-item">
+              <a
+                href="#"
+                class="menu-link">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div data-i18n="Email">Settings Hari Libur</div>
+              </a>
+            </li>
+            <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-layout"></i>
                 <div data-i18n="Layouts">Data Master</div>
@@ -120,7 +128,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-store"></i>
+                <i class="menu-icon tf-icons bx bx-qr-scan"></i>
                 <div data-i18n="Front Pages">Generate QR Code</div>
               </a>
               <ul class="menu-sub">
@@ -142,7 +150,7 @@
             </li>
              <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-store"></i>
+                <i class="menu-icon tf-icons bx bx-camera-home"></i>
                 <div data-i18n="Front Pages">Presensi Hari Ini</div>
               </a>
               <ul class="menu-sub">
@@ -164,7 +172,7 @@
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-store"></i>
+                <i class="menu-icon tf-icons bx bx-spreadsheet"></i>
                 <div data-i18n="Front Pages">Laporan Presensi</div>
               </a>
               <ul class="menu-sub">
