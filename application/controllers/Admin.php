@@ -328,6 +328,11 @@ function beranda() {
 }
 /////////////////////////// BATAS BERANDA  //////////////////////////////////////////////
 
+
+
+
+
+
 /////////////////////////// LOGIN LOGOUT //////////////////////////////////////////////
 
 	public function login()
@@ -371,6 +376,82 @@ function beranda() {
 	}
 
 /////////////////////////// BATAS LOGIN LOGOUT //////////////////////////////////////////////
+
+
+public function datakalender()
+{
+	$data['kalender'] = $this->Madmin->getdatakalender();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewdatakalender',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function formtambahkalender()
+{
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewtambahkalender');
+	$this->load->view('admin/footer_new');
+}
+
+public function savedatakalender()
+{
+	/*Check submit button */
+	if($this->input->post('save'))
+	{
+		$data['tgl_kalender']=$this->input->post('tgl_kalender');
+		$data['deskripsi']=$this->input->post('deskripsi');
+		$response=$this->Madmin->simpankalender($data);
+		if($response==true){
+				echo "<script>alert('Records Saved Successfully');</script>";
+				redirect('Admin/datakalender','refresh');
+		}
+		else{
+				echo "<script>alert('Records Saved Failed');</script>";
+				redirect('Admin/datakalender','refresh');
+		}
+	}
+}
+
+public function editkalender($id)
+{
+	$data['kalender'] = $this->Madmin->editkalender($id);
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/vieweditkalender',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function updatedatakalender()
+{
+	/*Check submit button */
+	if($this->input->post('update'))
+	{
+		$id = $this->input->post('id');
+		$tgl_kalender = $this->input->post('tgl_kalender');
+		$deskripsi = $this->input->post('deskripsi');
+		$response=$this->Madmin->updatekalender($id,$tgl_kalender,$deskripsi);
+		if($response==true){
+				echo "<script>alert('Records Update Failed');</script>";
+				redirect('Admin/datakalender','refresh');
+		}
+		else{
+				echo "<script>alert('Records Update Successfully');</script>";
+				redirect('Admin/datakalender','refresh');
+		}
+	}
+}
+
+public function hapusdatakalender($id)
+{
+	$response=$this->Madmin->hapuskalender($id);
+	if($response==true){
+			echo "<script>alert('Records Delete Failed');</script>";
+			redirect('Admin/datakalender','refresh');
+	}
+	else{
+			echo "<script>alert('Records Delete Successfully');</script>";
+			redirect('Admin/datakalender','refresh');
+	}
+}
 
 }
 

@@ -61,9 +61,20 @@ class Madmin extends CI_Model {
 		return $query->result();
 	}
 
+	function getdatakalender(){
+		$query=$this->db->get("tbl_kalender");
+		return $query->result();
+	}
+
 	function saverecords($data)
 	{
         $this->db->insert('tbl_guru',$data);
+        return true;
+	}
+
+	function simpankalender($data)
+	{
+        $this->db->insert('tbl_kalender',$data);
         return true;
 	}
 
@@ -74,15 +85,34 @@ class Madmin extends CI_Model {
 		return $query->result();
 	}
 
+	function editkalender($id)
+	{
+		$this->db->where('id', $id);
+		$query=$this->db->get("tbl_kalender");
+		return $query->result();
+	}
+
 	function updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$guru_mapel)
 	{
 		$query=" UPDATE tbl_guru SET nip = '".$nip."',nama_guru = '".$nama_guru."',jenis_kelamin = '".$jenis_kelamin."' ,guru_mapel = '".$guru_mapel."' WHERE id_guru = '".$id."'";
 		$this->db->query($query);
 	}
 
+	function updatekalender($id,$tgl_kalender,$deskripsi)
+	{
+		$query=" UPDATE tbl_kalender SET tgl_kalender = '".$tgl_kalender."',deskripsi = '".$deskripsi."' WHERE id = '".$id."'";
+		$this->db->query($query);
+	}
+
 	function deleterecords($id)
 	{
 		$query="DELETE from tbl_guru WHERE id_guru = '".$id."' ";
+		$this->db->query($query);
+	}
+
+	function hapuskalender($id)
+	{
+		$query="DELETE from tbl_kalender WHERE id = '".$id."' ";
 		$this->db->query($query);
 	}
 	

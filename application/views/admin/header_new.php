@@ -102,7 +102,7 @@
             </li>
             <li class="menu-item">
               <a
-                href="#"
+                href="<?= base_url('admin/datakalender');?>"
                 class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div data-i18n="Email">Settings Hari Libur</div>
