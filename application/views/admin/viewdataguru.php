@@ -21,7 +21,8 @@
                                             <th>NIP</th>
                                             <th>Nama Guru</th>
                                             <th>Jenis Kelamin</th>
-                                            <th>Guru Mata Pelajaran</th>
+                                            <!-- <th>Guru Mata Pelajaran</th> -->
+                                            <th>Wali Kelas</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -32,7 +33,8 @@
                                                 <td><?= $v->nip ?></td>
                                                 <td><?= $v->nama_guru ?></td>
                                                 <td><?= $v->jenis_kelamin ?></td>
-                                                <td><?= $v->guru_mapel ?></td>
+                                                <!-- <td><?= $v->guru_mapel ?></td> -->
+                                                <td><?= $v->nama_kelas ?></td>
                                                 <td>
                                                     <a href="<?= base_url('Admin/editguru/'); ?><?= $v->id_guru; ?>" class="btn btn-warning btn-sm">Edit</a>
                                                     <a href="<?= base_url('Admin/hapusdataguru/'); ?><?= $v->id_guru; ?>" class="btn btn-danger btn-sm">Hapus</a>

@@ -36,12 +36,23 @@
 											</select>
                                         </div>
                                     </div>
-									<div class="">
+                                    <div class="">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label">Wali Kelas</label>
+                                        <div class="col-sm-12">
+                                            <select name="walikelas" class="form-control" id="walikelas">
+                                                <?php foreach($kelas as $k):?>
+                                                    <option value="<?= $k->id_kelas?>"><?= $k->nama_kelas?></option>
+                                                <?php endforeach?>
+											</select>
+                                        </div>
+                                    </div>
+									<!-- <div class="">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Mata Pelajaran</label>
                                         <div class="col-sm-12">
                                             <input type="text" class="form-control" id="guru_mapel" name="guru_mapel" placeholder="">
                                         </div>
-                                    </div><br>
+                                    </div> -->
+                                    <br>
                                     <div class="">
                                         <div class="col-sm-10">
                                             <input type="submit" name="save" class="btn btn-primary" value="Simpan"/>

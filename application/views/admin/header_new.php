@@ -124,6 +124,11 @@
                     <div data-i18n="Without navbar">Data Siswa</div>
                   </a>
                 </li>
+                <li class="menu-item">
+                  <a href="<?= base_url('admin/datakelas');?>" class="menu-link">
+                    <div data-i18n="Without navbar">Data Kelas</div>
+                  </a>
+                </li>
               </ul>
             </li>
             <li class="menu-item">

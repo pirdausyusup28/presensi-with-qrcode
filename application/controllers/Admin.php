@@ -177,8 +177,9 @@ public function dataguru()
 
 public function formtambahguru()
 {
+	$data['kelas'] = $this->Madmin->getdatakelas();
 	$this->load->view('admin/header_new');
-	$this->load->view('admin/viewtambahguru');
+	$this->load->view('admin/viewtambahguru',$data);
 	$this->load->view('admin/footer_new');
 }
 
@@ -190,7 +191,7 @@ public function savedataguru()
 		$data['nip']=$this->input->post('nip');
 		$data['nama_guru']=$this->input->post('nama_guru');
 		$data['jenis_kelamin']=$this->input->post('jenis_kelamin');
-		$data['guru_mapel']=$this->input->post('guru_mapel');
+		$data['walikelas']=$this->input->post('walikelas');
 		$response=$this->Madmin->saverecords($data);
 		if($response==true){
 				echo "<script>alert('Records Saved Successfully');</script>";
@@ -206,6 +207,7 @@ public function savedataguru()
 public function editguru($id)
 {
 	$data['guru'] = $this->Madmin->getdataedit($id);
+	$data['kelas'] = $this->Madmin->getdatakelas();
 	$this->load->view('admin/header_new');
 	$this->load->view('admin/vieweditguru',$data);
 	$this->load->view('admin/footer_new');
@@ -220,8 +222,8 @@ public function updatedataguru()
 		$nip = $this->input->post('nip');
 		$nama_guru = $this->input->post('nama_guru');
 		$jenis_kelamin = $this->input->post('jenis_kelamin');
-		$guru_mapel =$this->input->post('guru_mapel');
-		$response=$this->Madmin->updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$guru_mapel);
+		$walikelas =$this->input->post('walikelas');
+		$response=$this->Madmin->updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas);
 		if($response==true){
 				echo "<script>alert('Records Update Failed');</script>";
 				redirect('Admin/dataguru','refresh');

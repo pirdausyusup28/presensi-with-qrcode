@@ -57,7 +57,14 @@ class Madmin extends CI_Model {
 	}
 
 	function getdataguru(){
-		$query=$this->db->get("tbl_guru");
+		$this->db->select('a.*,b.*');
+		$this->db->join('tbl_kelas b', 'a.walikelas = b.id_kelas', 'left');
+		$query=$this->db->get("tbl_guru a");
+		return $query->result();
+	}
+
+	function getdatakelas(){
+		$query=$this->db->get("tbl_kelas");
 		return $query->result();
 	}
 
@@ -92,9 +99,9 @@ class Madmin extends CI_Model {
 		return $query->result();
 	}
 
-	function updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$guru_mapel)
+	function updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas)
 	{
-		$query=" UPDATE tbl_guru SET nip = '".$nip."',nama_guru = '".$nama_guru."',jenis_kelamin = '".$jenis_kelamin."' ,guru_mapel = '".$guru_mapel."' WHERE id_guru = '".$id."'";
+		$query=" UPDATE tbl_guru SET nip = '".$nip."',nama_guru = '".$nama_guru."',jenis_kelamin = '".$jenis_kelamin."' ,walikelas = '".$walikelas."' WHERE id_guru = '".$id."'";
 		$this->db->query($query);
 	}
 
