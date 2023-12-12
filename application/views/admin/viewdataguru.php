@@ -20,8 +20,7 @@
                                             <th>#</th>
                                             <th>NIP</th>
                                             <th>Nama Guru</th>
-                                            <th>Jenis Kelamin</th>
-                                            <!-- <th>Guru Mata Pelajaran</th> -->
+                                            <th>Jenis Kelamin</th>                            
                                             <th>Wali Kelas</th>
                                             <th>Action</th>
                                         </tr>
