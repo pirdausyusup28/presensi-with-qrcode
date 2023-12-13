@@ -14,25 +14,25 @@
 </table>
 <hr size="20px">
 <br>
-<center><p>Laporan Presensi Harian Guru</p></center>
+<center><p>Laporan Presensi Harian Siswa</p></center>
 <center><p>Periode : <?= $_POST['tglawal']?> s/d <?= $_POST['tglakhir']?></p></center><br>
 <?php foreach($presensi as $a)?>
 <table border='1' class="table table-striped table-bordered table-sm" style="font-size:12px">
 <thead>
 <tr>
-<th style="width:100px;">NIP</th>
+<th style="width:100px;">NISN</th>
 <th style="width:10px;">:</th>
-<th><?= $a->nip?></th>
+<th><?= $a->nisn?></th>
 </tr>
 <tr>
 <th style="width:100px;">NAMA</th>
 <th style="width:10px;">:</th>
-<th><?= $a->nama_guru?></th>
+<th><?= $a->nama_siswa?></th>
 </tr>
 <tr>
-<th style="width:100px;">Guru Mata Pelajaran</th>
+<th style="width:100px;">Kelas</th>
 <th style="width:10px;">:</th>
-<th><?= $a->guru_mapel?></th>
+<th><?= $a->nama_kelas?></th>
 </tr>
 </thead>
 </table><br><br>
@@ -44,8 +44,8 @@
 <th>JAM MASUK</th>
 <th>JAM KELUAR</th>
 <th>KETERANGAN</th>
-<th>TOTAL JAM KERJA</th>
-<th>TOTAL JAM LEMBUR</th>
+<!-- <th>TOTAL JAM KERJA</th> -->
+<!-- <th>TOTAL JAM LEMBUR</th> -->
 </tr>
 </thead>
 <tbody>
@@ -82,8 +82,8 @@
 	<td><?= $jmm ?></td>
 	<td><?= $jkk ?></td>
 	<td><?= $ket?></td>
-	<td><?= $tjk ?></td>
-	<td><?= $tlkk ?></td>
+	<!-- <td><?= $tjk ?></td>
+	<td><?= $tlkk ?></td> -->
 	</tr>
 	<?php endforeach ?>
 	</tbody>

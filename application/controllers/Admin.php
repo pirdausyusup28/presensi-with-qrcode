@@ -455,6 +455,279 @@ public function hapusdatakalender($id)
 	}
 }
 
+public function datakelas()
+{
+	$data['kelas'] = $this->Madmin->getdatakelas();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewdatakelas',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function formtambahkelas()
+{
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewtambahkelas');
+	$this->load->view('admin/footer_new');
+}
+
+public function savedatakelas()
+{
+	/*Check submit button */
+	if($this->input->post('save'))
+	{
+		$data['nama_kelas']=$this->input->post('nama_kelas');
+		$response=$this->Madmin->simpankelas($data);
+		if($response==true){
+				echo "<script>alert('Records Saved Successfully');</script>";
+				redirect('Admin/datakelas','refresh');
+		}
+		else{
+				echo "<script>alert('Records Saved Failed');</script>";
+				redirect('Admin/datakelas','refresh');
+		}
+	}
+}
+
+public function editkelas($id)
+{
+	$data['kelas'] = $this->Madmin->editkelas($id);
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/vieweditkelas',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function updatedatakelas()
+{
+	/*Check submit button */
+	if($this->input->post('update'))
+	{
+		$id = $this->input->post('id');
+		$nama_kelas = $this->input->post('nama_kelas');
+		$response=$this->Madmin->updatekelas($id,$nama_kelas);
+		if($response==true){
+				echo "<script>alert('Records Update Failed');</script>";
+				redirect('Admin/datakelas','refresh');
+		}
+		else{
+				echo "<script>alert('Records Update Successfully');</script>";
+				redirect('Admin/datakelas','refresh');
+		}
+	}
+}
+
+public function hapusdatakelas($id)
+{
+	$response=$this->Madmin->hapuskelas($id);
+	if($response==true){
+			echo "<script>alert('Records Delete Failed');</script>";
+			redirect('Admin/datakelas','refresh');
+	}
+	else{
+			echo "<script>alert('Records Delete Successfully');</script>";
+			redirect('Admin/datakelas','refresh');
+	}
+}
+
+
+public function datasiswa()
+{
+	$data['siswa'] = $this->Madmin->getdatasiswa();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewdatasiswa',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function formtambahsiswa()
+{
+	$data['kelas'] = $this->Madmin->getdatakelas();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewtambahsiswa',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function savedatasiswa()
+{
+	/*Check submit button */
+	if($this->input->post('save'))
+	{
+		$data['nisn']=$this->input->post('nisn');
+		$data['nama_siswa']=$this->input->post('nama_siswa');
+		$data['kelas']=$this->input->post('kelas');
+		$data['orangtua_siswa']=$this->input->post('orangtua_siswa');
+		$data['alamat_siswa']=$this->input->post('alamat_siswa');
+		$data['status']=$this->input->post('status');
+		$response=$this->Madmin->simpansiswa($data);
+		if($response==true){
+				echo "<script>alert('Records Saved Successfully');</script>";
+				redirect('Admin/datasiswa','refresh');
+		}
+		else{
+				echo "<script>alert('Records Saved Failed');</script>";
+				redirect('Admin/datasiswa','refresh');
+		}
+	}
+}
+
+public function editsiswa($id)
+{
+	$data['siswa'] = $this->Madmin->getdataeditsiswa($id);
+	$data['kelas'] = $this->Madmin->getdatakelas();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/vieweditsiswa',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function updatedatasiswa()
+{
+	/*Check submit button */
+	if($this->input->post('update'))
+	{
+		$id = $this->input->post('id_siswa');
+		$nisn = $this->input->post('nisn');
+		$nama_siswa = $this->input->post('nama_siswa');
+		$kelas = $this->input->post('kelas');
+		$orangtua_siswa = $this->input->post('orangtua_siswa');
+		$alamat_siswa = $this->input->post('alamat_siswa');
+		$status = $this->input->post('status');
+		$response=$this->Madmin->updatesiswa($id,$nisn,$nama_siswa,$kelas,$orangtua_siswa,$alamat_siswa,$status);
+		if($response==true){
+				echo "<script>alert('Records Update Failed');</script>";
+				redirect('Admin/datasiswa','refresh');
+		}
+		else{
+				echo "<script>alert('Records Update Successfully');</script>";
+				redirect('Admin/datasiswa','refresh');
+		}
+	}
+}
+
+public function hapusdatasiswa($id)
+{
+	$response=$this->Madmin->hapussiswa($id);
+	if($response==true){
+			echo "<script>alert('Records Delete Failed');</script>";
+			redirect('Admin/datasiswa','refresh');
+	}
+	else{
+			echo "<script>alert('Records Delete Successfully');</script>";
+			redirect('Admin/datasiswa','refresh');
+	}
+}
+
+public function generateqrcodesiswa(){
+	$data['qrcodesiswa'] = $this->Madmin->getdataqrcodesiswa();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewgenerateqrcodesiswa',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function formtambahqrcodesiswa()
+{
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewtambahgenerateqrcodesiswa');
+	$this->load->view('admin/footer_new');
+}
+
+public function simpanqrcodesiswa()
+{
+	if($this->input->post('save'))
+	{
+	$nisn = $this->input->post('nisn');
+	$this->load->library('ciqrcode'); //pemanggilan library QR CODE
+
+	$config['cacheable']    = true; //boolean, the default is true
+	$config['cachedir']     = './assets/'; //string, the default is application/cache/
+	$config['errorlog']     = './assets/'; //string, the default is application/logs/
+	$config['imagedir']     = './assets/images/'; //direktori penyimpanan qr code
+	$config['quality']      = true; //boolean, the default is true
+	$config['size']         = '1024'; //interger, the default is 1024
+	$config['black']        = array(224,255,255); // array, default is array(255,255,255)
+	$config['white']        = array(70,130,180); // array, default is array(0,0,0)
+	$this->ciqrcode->initialize($config);
+
+	$image_name=$nisn.'.png'; //buat name dari qr code sesuai dengan nim
+
+	$params['data'] = $nisn; //data yang akan di jadikan QR CODE
+	$params['level'] = 'H'; //H=High
+	$params['size'] = 10;
+	$params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
+	$this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
+
+	$this->Madmin->simpanqrcodesiswa($nisn,$image_name); //simpan ke database
+	redirect('Admin/generateqrcodesiswa'); //redirect ke mahasiswa usai simpan data
+	}
+}
+
+public function hapusqrcodesiswa($id)
+{
+	$response=$this->Madmin->deleteqrcodesiswa($id);
+	if($response==true){
+			echo "<script>alert('Records Delete Failed');</script>";
+			redirect('Admin/generateqrcodesiswa','refresh');
+	}
+	else{
+			echo "<script>alert('Records Delete Successfully');</script>";
+			redirect('Admin/generateqrcodesiswa','refresh');
+	}
+}
+
+public function cetakqrcodesiswa($id)
+{
+	$this->load->library('pdfgenerator');
+	$data['qr'] = $this->Madmin->cetakqrcodesiswa($id);
+	$file_pdf = 'qrcodesiswa';
+	$paper = 'A4';
+	$orientation = "portait";
+	$html = $this->load->view('admin/qrcodepdfsiswa',$data, true);	    
+	$this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+}
+
+public function presensisiswa(){
+	$data['presensi'] = $this->Madmin->getpresensisiswa();
+	$data['presensi_ap'] = $this->Madmin->getpresensisiswa_ap();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/datapresensisiswa',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function laporanpresensisiswa(){
+	$data['nisn'] = $this->Madmin->getdatasiswa();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/laporanpresensisiswa',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function approveabsensiswa($nisn){
+	$datenya = date("Y-m-d");
+
+	$response=$this->Madmin->updateflagabsensiswa($datenya,$nisn);
+	if($response==true){
+			echo "<script>alert('Approve Successfully');</script>";
+			redirect('Admin/presensi','refresh');
+	}
+	else{
+			echo "<script>alert('Approve Failed');</script>";
+			redirect('Admin/presensi','refresh');
+	}
+}
+
+public function cetakpresensisiswa()
+{ 
+	$tglawal = $this->input->post('tglawal');
+	$tglakhir = $this->input->post('tglakhir');
+	$nisn = $this->input->post('nisn');
+	$this->load->library('pdfgenerator');
+	$data['presensi'] = $this->Madmin->cetakpresensisiswa($tglawal, $tglakhir,$nisn);
+	$data['tglawal'] = $this->input->post('tglawal');
+	$data['tglakhir'] = $this->input->post('tglakhir');
+	$file_pdf = 'Laporan Presensi';
+	$paper = 'A4';
+	$orientation = "portait";
+	$html = $this->load->view('admin/presensipdfsiswa',$data, true);	    
+	$this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+}
+
+
 }
 
 /* End of file Admin.php */

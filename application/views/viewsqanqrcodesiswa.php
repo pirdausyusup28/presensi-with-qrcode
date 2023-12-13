@@ -64,7 +64,7 @@
 						<div class='box-body container' style="padding-left: 120px">
 							<?php
 							$attributes = array('id' => 'button');
-							echo form_open('Absen/cek_id', $attributes); ?>
+							echo form_open('Absen/cek_id_siswa', $attributes); ?>
 							<div id="sourceSelectPanel" style="display:none">
 								<label for="sourceSelect">Change Camera Sources:</label>
 								<select id="sourceSelect" style="max-width:400px"></select>
@@ -72,7 +72,7 @@
 							<div class="container">
 								<video id="video" width="500" height="400" style="border: 1px solid gray"></video>
 							</div>
-							<textarea hidden="" name="nip" id="result" readonly></textarea>
+							<textarea hidden="" name="nisn" id="result" readonly></textarea>
 							<span> <input type="submit" id="button" class="btn btn-success btn-md" value="Cek Kehadiran"></span>
 							<?php echo form_close(); ?>
 						</div>
@@ -102,14 +102,13 @@
 						'Sat' => 'Sabtu'
 					);
 					?>
-								<center><b><p>DATA ABSENSI HARIAN GURU</p> <p><?= $dayList[$day];?> , <?= date("Y-m-d");?></p><span id="jam" style="font-size:24"></span></b></center></div>
+								<center><b><p>DATA ABSENSI HARIAN SISWA / SISWI</p> <p><?= $dayList[$day];?> , <?= date("Y-m-d");?></p><span id="jam" style="font-size:24"></span></b></center></div>
   								<table class="table table-striped table-bordered">
 									<thead>
 										<tr>
 											<th>No</th>
-											<th>NIP</th>
-											<th>Nama</th>
-											<th>Guru MaPel</th>
+											<th>NISN</th>
+											<th>Nama Siswa</th>
 											<th>Tanggal</th>
 											<th>Jam Masuk</th>
 											<th>Jam Keluar</th>
@@ -139,9 +138,8 @@
 										?>
 											<tr>
 												<td><?= $no++ ?></td>
-												<td><?= $p->nip ?></td>
-												<td><?= $p->nama_guru ?></td>
-												<td><?= $p->guru_mapel ?></td>
+												<td><?= $p->nisn ?></td>
+												<td><?= $p->nama_siswa ?></td>
 												<td><?= $p->tanggal ?></td>
 												<td><?= $jmm ?></td>
 												<td style=<?= $color;?>><?= $jkk ?></td>

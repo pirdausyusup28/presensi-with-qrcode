@@ -11,9 +11,12 @@ class Mabsen extends CI_Model {
 
 	function getdatapresensi()
 	{
-		// $tanggal = date("Y-m-d");
-		// $this->db->where('tanggal', $tanggal);
 		$query=$this->db->query("select a.nip,b.nama_guru,b.guru_mapel,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi a left join tbl_guru b on a.nip = b.nip where flag = 0 and tanggal = curdate()");
+		return $query->result();
+	}
+	function getdatapresensisiswa()
+	{
+		$query=$this->db->query("select a.nisn,b.nama_siswa,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn where flag = 0 and tanggal = curdate()");
 		return $query->result();
 	}
 	public function cek_user($data) {
@@ -75,10 +78,31 @@ class Mabsen extends CI_Model {
         }
     }
 
+	public function cek_id_siswa($nisn)
+    {
+        $query_str_1 = $this->db->where('nisn', $nisn)->get('tbl_siswa');
+
+        if ($query_str_1->num_rows() > 0) {
+            return $query_str_1->row();
+        }
+    }
+
 	public function cek_kehadiran($nip, $tgl)
     {
 		// $this->db->select('jam_masuk, CURTIME() as jam_sekarang, TIMEDIFF(CURTIME(),jam_masuk) as jam_menit_detik, hour(TIMEDIFF(CURTIME(),jam_masuk)) as hournya');
         $query_str = $this->db->where('nip', $nip)->where('tanggal', $tgl)->get('tbl_presensi');
+
+        if ($query_str->num_rows() > 0) {
+            return $query_str->row();
+        } else {
+            return false;
+        }
+    }
+
+	public function cek_kehadiran_siswa($nisn, $tgl)
+    {
+		// $this->db->select('jam_masuk, CURTIME() as jam_sekarang, TIMEDIFF(CURTIME(),jam_masuk) as jam_menit_detik, hour(TIMEDIFF(CURTIME(),jam_masuk)) as hournya');
+        $query_str = $this->db->where('nisn', $nisn)->where('tanggal', $tgl)->get('tbl_presensi_siswa');
 
         if ($query_str->num_rows() > 0) {
             return $query_str->row();
@@ -92,18 +116,23 @@ class Mabsen extends CI_Model {
         $query_str = $this->db->query("SELECT jam_masuk, CURTIME() as jam_sekarang, TIMEDIFF(CURTIME(),jam_masuk) as jam_menit_detik, hour(TIMEDIFF(CURTIME(),jam_masuk)) as hournya from tbl_presensi where nip = '$nip' and tanggal = '$tgl'");
 
 		return $query_str->result();
-		// echo $query_str;
+    }
 
-        // if ($query_str->num_rows() > 0) {
-        //     return $query_str->row();
-        // } else {
-        //     return false;
-        // }
+	public function cek_kehadiran_durasi_siswa($nisn, $tgl)
+    {
+        $query_str = $this->db->query("SELECT jam_masuk, CURTIME() as jam_sekarang, TIMEDIFF(CURTIME(),jam_masuk) as jam_menit_detik, hour(TIMEDIFF(CURTIME(),jam_masuk)) as hournya from tbl_presensi_siswa where nisn = '$nisn' and tanggal = '$tgl'");
+
+		return $query_str->result();
     }
 
 	public function absen_masuk($data)
     {
         return $this->db->insert('tbl_presensi', $data);
+    }
+
+	public function absen_masuk_siswa($data)
+    {
+        return $this->db->insert('tbl_presensi_siswa', $data);
     }
 
 	public function absen_pulang($nip, $data)
@@ -112,6 +141,14 @@ class Mabsen extends CI_Model {
         return $this->db->where('nip', $nip)
             ->where('tanggal', $tgl)
             ->update('tbl_presensi', $data);
+    }
+
+	public function absen_pulang_siswa($nisn, $data)
+    {
+        $tgl = date('Y-m-d');
+        return $this->db->where('nisn', $nisn)
+            ->where('tanggal', $tgl)
+            ->update('tbl_presensi_siswa', $data);
     }
 
 }

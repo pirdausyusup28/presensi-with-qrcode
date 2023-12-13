@@ -25,6 +25,12 @@ class Absen extends CI_Controller {
         $this->load->view('viewsqanqrcode',$data);
     }
 
+	public function sqanqrcodesiswa()
+    {
+		$data["presensi"] = $this->Mabsen->getdatapresensisiswa();
+        $this->load->view('viewsqanqrcodesiswa',$data);
+    }
+
     public function cek_login() {
         $data = array('nip' => $this->input->post('nip', TRUE)
             );
@@ -97,6 +103,53 @@ class Absen extends CI_Controller {
 			$this->Mabsen->absen_masuk($data);
 			$this->session->set_flashdata('messageAlert', '<p style="color:green; font-weight:bold;">Absen masuk berhasil....!</p>');
 			redirect('Absen/sqanqrcode','refresh');
+		}
+	}
+
+	function cek_id_siswa()
+	{
+		date_default_timezone_set('Asia/Jakarta');
+		// $user = $this->user;
+		$result_code = $this->input->post('nisn');
+		$tgl = date('Y-m-d');
+		$jam_masuk = date('H:i:s');		
+		$jam_keluar = date('H:i:s');
+		$cek_id = $this->Mabsen->cek_id_siswa($result_code);
+
+		$cek_kehadiran = $this->Mabsen->cek_kehadiran_siswa($result_code, $tgl);
+		$cek_kehadiran_durasi = $this->Mabsen->cek_kehadiran_durasi_siswa($result_code, $tgl);
+
+		foreach($cek_kehadiran_durasi as $a){
+		}
+
+		if (!$cek_id) {
+			$this->session->set_flashdata('messageAlert', '<p style="color:red; font-weight:bold;">Absen gagal, data tidak ditemukan!....</p>');
+			redirect('Absen/sqanqrcodesiswa','refresh');
+		} elseif ($cek_kehadiran & $cek_kehadiran->jam_masuk != '00:00:00' && $cek_kehadiran->jam_keluar == '00:00:00' && $a->hournya < 2) {
+			$this->session->set_flashdata('messageAlert', '<p style="color:red; font-weight:bold;">Sudah absen Masuk!....! </p>');
+			redirect('Absen/sqanqrcodesiswa','refresh');
+			return false;
+		}elseif ($cek_kehadiran && $cek_kehadiran->jam_masuk != '00:00:00' && $cek_kehadiran->jam_keluar == '00:00:00') {
+			$data = array(
+				'jam_keluar' => $jam_keluar
+			);
+			$this->Mabsen->absen_pulang_siswa($result_code, $data);
+			$this->session->set_flashdata('messageAlert', '<p style="color:red; font-weight:bold;">Absen pulang! berhasil....</p>');
+			redirect('Absen/sqanqrcodesiswa','refresh');
+		} elseif ($cek_kehadiran && $cek_kehadiran->jam_masuk != '00:00:00' && $cek_kehadiran->jam_keluar != '00:00:00') {
+			$this->session->set_flashdata('messageAlert', '<p style="color:red; font-weight:bold;">Sudah absen!....!</p>');
+			redirect('Absen/sqanqrcodesiswa','refresh');
+			return false;
+		} else {
+			$data = array(
+				'nisn' => $result_code,
+				'tanggal' => $tgl,
+				'jam_masuk' => $jam_masuk,
+				'flag' => 0
+			);
+			$this->Mabsen->absen_masuk_siswa($data);
+			$this->session->set_flashdata('messageAlert', '<p style="color:green; font-weight:bold;">Absen masuk berhasil....!</p>');
+			redirect('Absen/sqanqrcodesiswa','refresh');
 		}
 	}
 

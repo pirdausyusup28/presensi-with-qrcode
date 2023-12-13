@@ -45,8 +45,18 @@ class Madmin extends CI_Model {
 		return $query->result();
 	}
 
+	function getdataqrcodesiswa(){
+		$query = $this->db->query("SELECT a.*,b.* FROM tbl_generate_barcode_siswa a left join tbl_siswa b on a.nisn = b.nisn");
+		return $query->result();
+	}
+
 	function cetakqrcode($id){
 		$query=$this->db->query("select a.*,b.* FROM tbl_generate_barcode a inner join tbl_guru b on a.nip = b.nip where a.id_barcode = '".$id."'");
+		return $query->result();
+	}
+
+	function cetakqrcodesiswa($id){
+		$query=$this->db->query("select a.*,b.* FROM tbl_generate_barcode_siswa a left join tbl_siswa b on a.nisn = b.nisn where a.id_barcode_siswa = '".$id."'");
 		return $query->result();
 	}
 
@@ -60,6 +70,13 @@ class Madmin extends CI_Model {
 		$this->db->select('a.*,b.*');
 		$this->db->join('tbl_kelas b', 'a.walikelas = b.id_kelas', 'left');
 		$query=$this->db->get("tbl_guru a");
+		return $query->result();
+	}
+
+	function getdatasiswa(){
+		$this->db->select('a.*,b.*');
+		$this->db->join('tbl_kelas b', 'a.kelas = b.id_kelas', 'left');
+		$query=$this->db->get("tbl_siswa a");
 		return $query->result();
 	}
 
@@ -85,6 +102,18 @@ class Madmin extends CI_Model {
         return true;
 	}
 
+	function simpansiswa($data)
+	{
+        $this->db->insert('tbl_siswa',$data);
+        return true;
+	}
+
+	function simpankelas($data)
+	{
+        $this->db->insert('tbl_kelas',$data);
+        return true;
+	}
+
 	function getdataedit($id)
 	{
 		$this->db->where('id_guru', $id);
@@ -92,10 +121,24 @@ class Madmin extends CI_Model {
 		return $query->result();
 	}
 
+	function getdataeditsiswa($id)
+	{
+		$this->db->where('id_siswa', $id);
+		$query=$this->db->get("tbl_siswa");
+		return $query->result();
+	}
+
 	function editkalender($id)
 	{
 		$this->db->where('id', $id);
 		$query=$this->db->get("tbl_kalender");
+		return $query->result();
+	}
+
+	function editkelas($id)
+	{
+		$this->db->where('id_kelas', $id);
+		$query=$this->db->get("tbl_kelas");
 		return $query->result();
 	}
 
@@ -111,6 +154,18 @@ class Madmin extends CI_Model {
 		$this->db->query($query);
 	}
 
+	function updatekelas($id,$nama_kelas)
+	{
+		$query=" UPDATE tbl_kelas SET nama_kelas = '".$nama_kelas."' WHERE id_kelas = '".$id."'";
+		$this->db->query($query);
+	}
+
+	function updatesiswa($id,$nisn,$nama_siswa,$kelas,$orangtua_siswa,$alamat_siswa,$status)
+	{
+		$query=" UPDATE tbl_siswa SET nisn = '".$nisn."',nama_siswa = '".$nama_siswa."',kelas = '".$kelas."',orangtua_siswa = '".$orangtua_siswa."',alamat_siswa = '".$alamat_siswa."',status = '".$status."' WHERE id_siswa = '".$id."'";
+		$this->db->query($query);
+	}
+
 	function deleterecords($id)
 	{
 		$query="DELETE from tbl_guru WHERE id_guru = '".$id."' ";
@@ -122,6 +177,19 @@ class Madmin extends CI_Model {
 		$query="DELETE from tbl_kalender WHERE id = '".$id."' ";
 		$this->db->query($query);
 	}
+
+
+	function hapussiswa($id)
+	{
+		$query="DELETE from tbl_siswa WHERE id_siswa = '".$id."' ";
+		$this->db->query($query);
+	}
+
+	function hapuskelas($id)
+	{
+		$query="DELETE from tbl_kelas WHERE id_kelas = '".$id."' ";
+		$this->db->query($query);
+	}
 	
 
 	function simpanqrcode($nip,$image_name){
@@ -130,6 +198,14 @@ class Madmin extends CI_Model {
             'gambar'   		=> $image_name
         );
         $this->db->insert('tbl_generate_barcode',$data);
+    }
+
+	function simpanqrcodesiswa($nisn,$image_name){
+        $data = array(
+            'nisn'  	=> $nisn, 
+            'gambar'   		=> $image_name
+        );
+        $this->db->insert('tbl_generate_barcode_siswa',$data);
     }
 
 	function getdatatentang()
@@ -265,6 +341,42 @@ class Madmin extends CI_Model {
 		$query=$this->db->get("tblpesanan");
 		return $query->result();
 	}	
+
+
+
+
+
+
+
+	function getpresensisiswa(){
+		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 0 and tanggal = curdate() ");
+		return $query->result();
+	}
+
+	function getpresensisiswa_ap(){
+		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar ,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1 and tanggal = curdate() ");
+		return $query->result();
+	}
+
+	function getpresensiapprovesiswa(){
+		$query=$this->db->query("select a.nisn,b.nama_siswa,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1 and tanggal = curdate() ");
+		return $query->result();
+	}
+
+	function updateflagabsensiswa($datenya,$nisn){
+		$this->db->set('flag', '1');
+		$this->db->where('tanggal', $datenya);
+		$this->db->where('nisn', $nisn);
+		$this->db->update('tbl_presensi_siswa');
+		return true;
+	}
+
+	function cetakpresensisiswa($tglawal, $tglakhir,$nisn){
+		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn,
+		b.nama_siswa,c.nama_kelas,
+		a.tanggal order by a.tanggal asc");
+		return $query->result();
+	}
 	
 
 }
