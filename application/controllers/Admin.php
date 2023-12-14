@@ -194,6 +194,7 @@ public function savedataguru()
 		$data['walikelas']=$this->input->post('walikelas');
 		$response=$this->Madmin->saverecords($data);
 		if($response==true){
+				$response=$this->Madmin->simpanuserguru($data);
 				echo "<script>alert('Records Saved Successfully');</script>";
 				redirect('Admin/dataguru','refresh');
 		}
@@ -352,7 +353,7 @@ function beranda() {
 				$sess_data['logged_in'] = 'Sudah Loggin';
 				$sess_data['id'] = $sess->id;
 				$sess_data['username'] = $sess->username;
-				$sess_data['level'] = $sess->level;
+				$sess_data['role'] = $sess->role;
 				$this->session->set_userdata($sess_data);
 			}
 			if($this->session->userdata('username') == ''){
@@ -558,6 +559,7 @@ public function savedatasiswa()
 		$data['status']=$this->input->post('status');
 		$response=$this->Madmin->simpansiswa($data);
 		if($response==true){
+				$response=$this->Madmin->simpanusersiswa($data);
 				echo "<script>alert('Records Saved Successfully');</script>";
 				redirect('Admin/datasiswa','refresh');
 		}

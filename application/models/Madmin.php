@@ -96,6 +96,36 @@ class Madmin extends CI_Model {
         return true;
 	}
 
+	function simpanuserguru($data)
+	{
+		// Use prepared statements to prevent SQL injection
+		$query = "INSERT INTO tbl_user (username, password,role) VALUES (?, ?, ?)";
+		$this->db->query($query, array($data['nip'], 'PwdGuru','guru'));
+	
+		// Check if the query was successful (optional)
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false; // or handle the error as needed
+		}
+	}
+
+	function simpanusersiswa($data)
+	{
+		// Use prepared statements to prevent SQL injection
+		$query = "INSERT INTO tbl_user (username, password,role) VALUES (?, ?, ?)";
+		$this->db->query($query, array($data['nisn'], 'Pwdorangtuasiswa','ots'));
+	
+		// Check if the query was successful (optional)
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false; // or handle the error as needed
+		}
+	}
+
+	
+
 	function simpankalender($data)
 	{
         $this->db->insert('tbl_kalender',$data);

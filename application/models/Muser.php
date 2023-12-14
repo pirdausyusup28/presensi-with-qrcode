@@ -5,11 +5,11 @@ class Muser extends CI_Model {
 
 	function getdata()
 	{
-		$query=$this->db->get("tbluser");
+		$query=$this->db->get("tbl_user");
 		return $query->result();
 	}
 	public function cek_user($data) {
-			$query = $this->db->get_where('tbluser', $data);
+			$query = $this->db->get_where('tbl_user', $data);
 			return $query;
 	}
 
@@ -29,32 +29,32 @@ class Muser extends CI_Model {
 	function getdataedit($id)
 	{
 		$this->db->where('id', $id);
-		$query=$this->db->get("tbluser");
+		$query=$this->db->get("tbl_user");
 		return $query->result();
 	}
 
 
 	function saverecords($data)
 	{
-        $this->db->insert('tbluser',$data);
+        $this->db->insert('tbl_user',$data);
         return true;
 	}
 
 	function updaterecords($id,$username,$email,$password)
 	{
-		$query=" UPDATE tbluser SET username = '".$username."',email = '".$email."',password = '".$password."' WHERE id = '".$id."' ";
+		$query=" UPDATE tbl_user SET username = '".$username."',email = '".$email."',password = '".$password."' WHERE id = '".$id."' ";
 		$this->db->query($query);
 	}
 
 	// function deleterecords($id)
 	// {
-	// 	$query=" DELETE FROM `tbluser` WHERE id = '".$id."' ";
+	// 	$query=" DELETE FROM `tbl_user` WHERE id = '".$id."' ";
 	// 	$this->db->query($query);
 	// }
 
 	function deleterecords($id)
 	{
-		$query="DELETE from tbluser WHERE id = '".$id."' ";
+		$query="DELETE from tbl_user WHERE id = '".$id."' ";
 		$this->db->query($query);
 	}
 

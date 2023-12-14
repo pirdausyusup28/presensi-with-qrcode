@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tbluser`
+-- Table structure for table `tbl_user`
 --
 
-CREATE TABLE `tbluser` (
+CREATE TABLE `tbl_user` (
   `id` int(11) NOT NULL,
   `username` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
@@ -34,10 +34,10 @@ CREATE TABLE `tbluser` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `tbluser`
+-- Dumping data for table `tbl_user`
 --
 
-INSERT INTO `tbluser` (`id`, `username`, `email`, `password`) VALUES
+INSERT INTO `tbl_user` (`id`, `username`, `email`, `password`) VALUES
 (1, 'admin', 'admin@gmail.com', 'admin'),
 (3, 'saya', 'saya@gmail.com', 'saya'),
 (4, 'tess', 'tess@fnn', 'tess');
@@ -226,9 +226,9 @@ CREATE TABLE `tbl_user` (
 --
 
 --
--- Indexes for table `tbluser`
+-- Indexes for table `tbl_user`
 --
-ALTER TABLE `tbluser`
+ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -291,9 +291,9 @@ ALTER TABLE `tbl_user`
 --
 
 --
--- AUTO_INCREMENT for table `tbluser`
+-- AUTO_INCREMENT for table `tbl_user`
 --
-ALTER TABLE `tbluser`
+ALTER TABLE `tbl_user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `tbl_generate_barcode`
