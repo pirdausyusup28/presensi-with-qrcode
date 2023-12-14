@@ -9,6 +9,7 @@
                 <div class="col-lg-12 col-md-12 col-6 mb-4">
                     <div class="card">
                         <div class="card-header">
+                        <a href="<?= base_url('admin/inputkehadiransiswa');?>"class="btn btn-warning btn-sm">Input Kehadiran</a><br><br>
                         <h5>List Data Presensi Siswa</h5>
                         </div>
                         <div class="card-body">
@@ -24,7 +25,7 @@
                                             <th>ABSEN MASUK</th>
                                             <th>ABSEN KELUAR</th>
                                             <th>KETERANGAN</th>
-                                            <th>STATUS</th>
+                                            <th><?= ($this->session->userdata('role') == 'ots')?'':'STATUS';?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,7 +52,9 @@
                                                 <td><?= $v->jam_keluar ?></td>
                                                 <td><?= $ket?></td>
                                                 <td>
+                                                    <?php if($this->session->userdata('role') !== 'ots'):?>
                                                     <a href="<?= base_url('Admin/approve/')?><?= $v->nisn?>" type="submit" class="btn btn-primary btn-sm">Approve</a>
+                                                    <?php endif?>
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>
@@ -93,15 +96,15 @@
 											$tlkk = ($tlk > 1 ? $tlk : 0);
 											if($diff->h >= 8){
 												$tjknya = $diff->h - 8;
-												$ket = "<span class='badge badge-warning'>Jam Kerja Lebih</span>";
-												$tjk = "<span class='badge badge-warning'>total $diff->h jam kerja dan Jam Kerja lebih $tjknya</span>";
+												$ket = "<span class='badge bg-warning'>Jam Kerja Lebih</span>";
+												$tjk = "<span class='badge bg-warning'>total $diff->h jam kerja dan Jam Kerja lebih $tjknya</span>";
 											}elseif($diff->h <= 8){
 												$tjknya = $diff->h - 8;
-												$ket = "<span class='badge badge-danger'>Jam Kerja Kurang</span>";
-												$tjk = "<span class='badge badge-danger'>total $diff->h jam kerja dan Jam Kerja $tjknya</span>";
+												$ket = "<span class='badge bg-danger'>Jam Kerja Kurang</span>";
+												$tjk = "<span class='badge bg-danger'>total $diff->h jam kerja dan Jam Kerja $tjknya</span>";
 											}elseif($diff->h == 8){
-												$ket = "<span class='badge badge-success'>Jam Kerja Pas</span>";
-												$tjk = "<span class='badge badge-success'>Jam Kerja Pas 8 jam</span>";
+												$ket = "<span class='badge bg-success'>Jam Kerja Pas</span>";
+												$tjk = "<span class='badge bg-success'>Jam Kerja Pas 8 jam</span>";
 											}
 										?>
                                         <tr>
@@ -112,9 +115,9 @@
                                             <td><?= $v->tanggal ?></td>
                                             <td><?= $v->jam_masuk ?></td>
                                             <td><?= $v->jam_keluar ?></td>
-                                            <td><?= $ket ?></td>
-                                            <!-- <td><?= $tjk ?></td>
-                                            <td><?= $tlkk ?></td> -->
+                                            <td><?= ($v->flag == '2')?'<span class="badge bg-success">Izin</span>':$ket ?></td>
+                                            <!-- <td><?= ($v->flag == '2')?'<span class="badge bg-danger">Jam Kerja 0</span>':$tjk ?></td> -->
+                                            <!-- <td><?= $tlkk ?></td> -->
                                         </tr>
                                     <?php endforeach ?>
                                 </tbody>

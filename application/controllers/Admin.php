@@ -19,8 +19,15 @@ class Admin extends CI_Controller {
 
 	public function dashboard()
 	{
+		$data['hadir'] = $this->Madmin->gethadirguru();
+		$data['ijin'] = $this->Madmin->getijinguru();
+		$data['telat'] = $this->Madmin->gettelatguru();
+		$data['hadirs'] = $this->Madmin->gethadirsiswa();
+		$data['ijins'] = $this->Madmin->getijinsiswa();
+		$data['telats'] = $this->Madmin->gettelatsiswa();
+		$data['libur'] = $this->Madmin->getdatalibur();
 		$this->load->view('admin/header_new');
-		$this->load->view('admin/viewdashboard');
+		$this->load->view('admin/viewdashboard',$data);
 		$this->load->view('admin/footer_new');
 	}
 
@@ -727,6 +734,64 @@ public function cetakpresensisiswa()
 	$orientation = "portait";
 	$html = $this->load->view('admin/presensipdfsiswa',$data, true);	    
 	$this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+}
+
+public function inputkehadiran()
+{
+	$data['guru'] = $this->Madmin->getdataguru();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewtambahkehadiran',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function savedatakehadiran()
+{
+	/*Check submit button */
+	if($this->input->post('save'))
+	{
+		date_default_timezone_set("Asia/Bangkok");
+		$data['nip']=$this->input->post('nip');
+		$data['tanggal']= date('Y-m-d');
+		$data['flag']=$this->input->post('flag');
+		$response=$this->Madmin->savedatakehadiran($data);
+		if($response==true){
+				echo "<script>alert('Records Saved Successfully');</script>";
+				redirect('Admin/dataguru','refresh');
+		}
+		else{
+				echo "<script>alert('Records Saved Failed');</script>";
+				redirect('Admin/dataguru','refresh');
+		}
+	}
+}
+
+public function inputkehadiransiswa()
+{
+	$data['siswa'] = $this->Madmin->getdatasiswa();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/viewtambahkehadiransiswa',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function savedatakehadiransiswa()
+{
+	/*Check submit button */
+	if($this->input->post('save'))
+	{
+		date_default_timezone_set("Asia/Bangkok");
+		$data['nisn']=$this->input->post('nisn');
+		$data['tanggal']= date('Y-m-d');
+		$data['flag']=$this->input->post('flag');
+		$response=$this->Madmin->savedatakehadiransiswa($data);
+		if($response==true){
+				echo "<script>alert('Records Saved Successfully');</script>";
+				redirect('Admin/datasiswa','refresh');
+		}
+		else{
+				echo "<script>alert('Records Saved Failed');</script>";
+				redirect('Admin/datasiswa','refresh');
+		}
+	}
 }
 
 

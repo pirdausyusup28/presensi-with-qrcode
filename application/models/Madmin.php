@@ -15,7 +15,7 @@ class Madmin extends CI_Model {
 	}
 
 	function getpresensi_ap(){
-		$query=$this->db->query("select a.nip,b.nama_guru,b.guru_mapel,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi a left join tbl_guru b on a.nip = b.nip where flag = 1 and tanggal = curdate() ");
+		$query=$this->db->query("select a.nip,a.flag,b.nama_guru,b.guru_mapel,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi a left join tbl_guru b on a.nip = b.nip where flag IN ('1','2') and tanggal = curdate() ");
 		return $query->result();
 	}
 
@@ -74,8 +74,14 @@ class Madmin extends CI_Model {
 	}
 
 	function getdatasiswa(){
-		$this->db->select('a.*,b.*');
-		$this->db->join('tbl_kelas b', 'a.kelas = b.id_kelas', 'left');
+		if($this->session->userdata('role') == 'ots'){
+			$this->db->select('a.*,b.*');
+			$this->db->join('tbl_kelas b', 'a.kelas = b.id_kelas', 'left');
+			$this->db->where('a.nisn', $this->session->userdata('username'));
+		}else{
+			$this->db->select('a.*,b.*');
+			$this->db->join('tbl_kelas b', 'a.kelas = b.id_kelas', 'left');
+		}
 		$query=$this->db->get("tbl_siswa a");
 		return $query->result();
 	}
@@ -86,6 +92,11 @@ class Madmin extends CI_Model {
 	}
 
 	function getdatakalender(){
+		$query=$this->db->get("tbl_kalender");
+		return $query->result();
+	}
+
+	function getdatalibur(){
 		$query=$this->db->get("tbl_kalender");
 		return $query->result();
 	}
@@ -141,6 +152,18 @@ class Madmin extends CI_Model {
 	function simpankelas($data)
 	{
         $this->db->insert('tbl_kelas',$data);
+        return true;
+	}
+
+	function savedatakehadiran($data)
+	{
+        $this->db->insert('tbl_presensi',$data);
+        return true;
+	}
+
+	function savedatakehadiransiswa($data)
+	{
+        $this->db->insert('tbl_presensi_siswa',$data);
         return true;
 	}
 
@@ -379,12 +402,22 @@ class Madmin extends CI_Model {
 
 
 	function getpresensisiswa(){
-		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 0 and tanggal = curdate() ");
+		if($this->session->userdata('role') == 'ots'){
+			$where = "and a.nisn = '".$this->session->userdata('username')."'";
+		}else{
+			$where = "";
+		}
+		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 0 and tanggal = curdate() $where ");
 		return $query->result();
 	}
 
 	function getpresensisiswa_ap(){
-		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar ,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1 and tanggal = curdate() ");
+		if($this->session->userdata('role') == 'ots'){
+			$where = "and a.nisn = '".$this->session->userdata('username')."'";
+		}else{
+			$where = "";
+		}
+		$query=$this->db->query("select a.nisn,a.flag,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar ,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag IN ('1','2') and tanggal = curdate() $where");
 		return $query->result();
 	}
 
@@ -407,6 +440,43 @@ class Madmin extends CI_Model {
 		a.tanggal order by a.tanggal asc");
 		return $query->result();
 	}
+
+
+	function gethadirguru()
+	{
+		$query=$this->db->query("select count(*) totalhadirguru from tbl_presensi where tanggal = curdate() and flag !='2'");
+		return $query->result();
+	}	
+
+	function getijinguru()
+	{
+		$query=$this->db->query("select count(*) totalijinguru from tbl_presensi where tanggal = curdate() and flag = '2'");
+		return $query->result();
+	}	
+
+	function gettelatguru()
+	{
+		$query=$this->db->query("select count(*) totaltelatguru from tbl_presensi where tanggal = curdate() and jam_masuk > '08:00:00' and flag !='2'");
+		return $query->result();
+	}	
+
+	function gethadirsiswa()
+	{
+		$query=$this->db->query("select count(*) totalhadirsiswa from tbl_presensi_siswa where tanggal = curdate() and flag !='2'");
+		return $query->result();
+	}	
+
+	function getijinsiswa()
+	{
+		$query=$this->db->query("select count(*) totalijinsiswa from tbl_presensi_siswa where tanggal = curdate() and flag = '2'");
+		return $query->result();
+	}	
+
+	function gettelatsiswa()
+	{
+		$query=$this->db->query("select count(*) totaltelatsiswa from tbl_presensi_siswa where tanggal = curdate() and jam_masuk > '08:00:00' and flag !='2'");
+		return $query->result();
+	}	
 	
 
 }

@@ -1,6 +1,13 @@
 <!-- Content wrapper -->
 <div class="content-wrapper">
 <!-- Content -->
+<?php foreach($hadir as $h):?><?php endforeach?>
+<?php foreach($ijin as $i):?><?php endforeach?>
+<?php foreach($telat as $t):?><?php endforeach?>
+
+<?php foreach($hadirs as $hs):?><?php endforeach?>
+<?php foreach($ijins as $is):?><?php endforeach?>
+<?php foreach($telats as $ts):?><?php endforeach?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
@@ -10,7 +17,7 @@
             <div class="card">
             <div class="card-body">
                 <span class="fw-medium d-block mb-1">Absensi Guru Hari Ini</span>
-                <h3 class="card-title mb-2">12</h3>
+                <h3 class="card-title mb-2"><?= $h->totalhadirguru?></h3>
             </div>
             </div>
         </div>
@@ -18,7 +25,7 @@
             <div class="card">
             <div class="card-body">
                 <span class="fw-medium d-block mb-1">Total Guru Izin hari Ini</span>
-                <h3 class="card-title mb-2">2</h3>
+                <h3 class="card-title mb-2"><?= $i->totalijinguru?></h3>
             </div>
             </div> 
         </div>
@@ -26,7 +33,7 @@
             <div class="card">
             <div class="card-body">
                 <span class="fw-medium d-block mb-1">Total Guru Telat Hari ini</span>
-                <h3 class="card-title mb-2">5</h3>
+                <h3 class="card-title mb-2"><?= $t->totaltelatguru?></h3>
             </div>
             </div>
         </div>
@@ -34,7 +41,7 @@
             <div class="card">
             <div class="card-body">
                 <span class="fw-medium d-block mb-1">Total Absensi Siswa Hari ini</span>
-                <h3 class="card-title mb-2">5</h3>
+                <h3 class="card-title mb-2"><?= $hs->totalhadirsiswa?></h3>
             </div>
             </div>
         </div>
@@ -42,7 +49,7 @@
             <div class="card">
             <div class="card-body">
                 <span class="fw-medium d-block mb-1">Total Siswa Izin hari Ini</span>
-                <h3 class="card-title mb-2">2</h3>
+                <h3 class="card-title mb-2"><?= $is->totalijinsiswa?></h3>
             </div>
             </div> 
         </div>
@@ -50,11 +57,17 @@
             <div class="card">
             <div class="card-body">
                 <span class="fw-medium d-block mb-1">Total Siswa Telat Hari ini</span>
-                <h3 class="card-title mb-2">5</h3>
+                <h3 class="card-title mb-2"><?= $ts->totaltelatsiswa?></h3>
             </div>
             </div>
         </div>
         </div>
+        <ul class="list-group">
+            <li class="list-group-item active" aria-current="true">HARI LIBUR NASIONAL</li>
+            <?php foreach($libur as $lib):?>
+                <li class="list-group-item"><span class="badge rounded-pill bg-danger"><?= $lib->tgl_kalender?></span> <span class="badge rounded-pill bg-primary"> <?= $lib->deskripsi?></span></li>
+            <?php endforeach?>
+        </ul>
     </div>
     </div>
     <div class="row">

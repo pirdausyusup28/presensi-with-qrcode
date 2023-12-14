@@ -112,7 +112,7 @@
 											<th>Tanggal</th>
 											<th>Jam Masuk</th>
 											<th>Jam Keluar</th>
-											<th>Keterangan</th>
+											<!-- <th>Keterangan</th> -->
 										</tr>
 									</thead>
 									<tbody>
@@ -143,7 +143,7 @@
 												<td><?= $p->tanggal ?></td>
 												<td><?= $jmm ?></td>
 												<td style=<?= $color;?>><?= $jkk ?></td>
-												<td><?= $ket?></td>
+												<!-- <td><?= $ket?></td> -->
 											</tr>
 										<?php }?>
 									</tbody>
