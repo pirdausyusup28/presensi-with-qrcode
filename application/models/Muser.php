@@ -20,6 +20,20 @@ class Muser extends CI_Model {
 			return $query;
 	}
 
+	public function getdataakun() {
+		$this->db->where('username', $this->session->userdata('username'));
+		$query=$this->db->get("tbl_user");
+		return $query->result();
+	}
+
+	function updateakun($data){
+		$this->db->set('password', $data['password']);
+		$this->db->where('id', $data['id']);
+		$this->db->where('username', $data['username']);
+		$this->db->update('tbl_user');
+		return true;
+	}
+
 
 
 	function getdataedit($id)

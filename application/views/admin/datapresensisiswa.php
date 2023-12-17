@@ -53,7 +53,7 @@
                                                 <td><?= $ket?></td>
                                                 <td>
                                                     <?php if($this->session->userdata('role') !== 'ots'):?>
-                                                    <a href="<?= base_url('Admin/approve/')?><?= $v->nisn?>" type="submit" class="btn btn-primary btn-sm">Approve</a>
+                                                        <a href="<?= base_url('Admin/approvesiswa/') . $v->nisn ?>" class="btn btn-primary btn-sm approve-link">Approve</a>
                                                     <?php endif?>
                                                 </td>
                                             </tr>
@@ -130,4 +130,37 @@
         </div>
     </div>
 </div>
-<!-- / Content -->
+<!-- Include jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Include SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- Your JavaScript code -->
+<script>
+    $(document).ready(function() {
+        // Intercept the click event on the 'Approve' link
+        $("a.approve-link").click(function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Get the URL from the href attribute
+            var approveUrl = $(this).attr("href");
+
+            // Display SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Yakin Ingin mengApprove absensi siswa ini ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                // If confirmed, navigate to the approval URL
+                if (result.isConfirmed) {
+                    window.location.href = approveUrl;
+                }
+            });
+        });
+    });
+</script>

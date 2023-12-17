@@ -37,6 +37,14 @@ class Madmin extends CI_Model {
 		return true;
 	}
 
+	function updateflagsiswa($datenya,$nisn){
+		$this->db->set('flag', '1');
+		$this->db->where('tanggal', $datenya);
+		$this->db->where('nisn', $nisn);
+		$this->db->update('tbl_presensi_siswa');
+		return true;
+	}
+
 	function cetakpresensi($tglawal, $tglakhir,$nip){
 		$query=$this->db->query("select a.nip,b.nama_guru,b.guru_mapel,a.tanggal,a.jam_masuk,a.jam_keluar from tbl_presensi a inner join tbl_guru b on a.nip = b.nip where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nip = '".$nip."' group by a.nip,
 		b.nama_guru,

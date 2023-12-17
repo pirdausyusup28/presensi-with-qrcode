@@ -101,6 +101,14 @@
                 <div data-i18n="Email">Dashboard</div>
               </a>
             </li>
+            <li class="menu-item">
+                <a
+                  href="<?= base_url('admin/informasiakun');?>"
+                  class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-calendar"></i>
+                  <div data-i18n="Email">Informasi Akun</div>
+                </a>
+              </li>
             <?php if($this->session->userdata('role') == 'admin'){?>
               <li class="menu-item">
                 <a

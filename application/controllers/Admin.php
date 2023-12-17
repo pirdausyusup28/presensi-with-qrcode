@@ -150,6 +150,13 @@ class Admin extends CI_Controller {
 		}
 	}
 
+	public function approvesiswa($nisn){
+		$datenya = date("Y-m-d");
+
+		$response=$this->Madmin->updateflagsiswa($datenya,$nisn);
+		redirect('Admin/presensisiswa','refresh');
+	}
+
 	public function cetakpresensi()
 	{ 
 		$tglawal = $this->input->post('tglawal');
@@ -777,23 +784,34 @@ public function inputkehadiransiswa()
 public function savedatakehadiransiswa()
 {
 	/*Check submit button */
-	if($this->input->post('save'))
-	{
+	// if($this->input->post('save'))
+	// {
 		date_default_timezone_set("Asia/Bangkok");
 		$data['nisn']=$this->input->post('nisn');
 		$data['tanggal']= date('Y-m-d');
 		$data['flag']=$this->input->post('flag');
 		$response=$this->Madmin->savedatakehadiransiswa($data);
-		if($response==true){
-				echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/datasiswa','refresh');
-		}
-		else{
-				echo "<script>alert('Records Saved Failed');</script>";
-				redirect('Admin/datasiswa','refresh');
-		}
-	}
+		redirect('Admin/presensisiswa','refresh');
+	// }
 }
+
+public function informasiakun()
+{
+	$data['akun'] = $this->Muser->getdataakun();
+	$this->load->view('admin/header_new');
+	$this->load->view('admin/vieweditakun',$data);
+	$this->load->view('admin/footer_new');
+}
+
+public function updateakun()
+{
+        $data['id'] = $this->input->post('id');
+        $data['username'] = $this->input->post('username');
+        $data['password'] = $this->input->post('password');
+        $response = $this->Muser->updateakun($data);
+		redirect('Admin/login', 'refresh');
+}
+
 
 
 }
