@@ -38,7 +38,8 @@ class Madmin extends CI_Model {
 	}
 
 	function updateflagsiswa($datenya,$nisn){
-		$this->db->set('flag', '1');
+		// $this->db->set('flag', '1');
+		$this->db->set('flag_2', '1');
 		$this->db->where('tanggal', $datenya);
 		$this->db->where('nisn', $nisn);
 		$this->db->update('tbl_presensi_siswa');
@@ -167,8 +168,9 @@ class Madmin extends CI_Model {
 	function simpanusersiswa($data)
 	{
 		// Use prepared statements to prevent SQL injection
+		$pass = $data['nisn'].'ruhama';
 		$query = "INSERT INTO tbl_user (username, password,role) VALUES (?, ?, ?)";
-		$this->db->query($query, array($data['nisn'], 'Pwdorangtuasiswa','ots'));
+		$this->db->query($query, array($data['nisn'], $pass,'ots'));
 	
 		// Check if the query was successful (optional)
 		if ($this->db->affected_rows() > 0) {
@@ -313,7 +315,7 @@ class Madmin extends CI_Model {
 		}else{
 			$where = "";
 		}
-		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 0 and tanggal = curdate() $where ");
+		$query=$this->db->query("select a.nisn,a.gambar,a.flag,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag_2 = '0' and tanggal = curdate() $where ");
 		return $query->result();
 	}
 
@@ -323,12 +325,12 @@ class Madmin extends CI_Model {
 		}else{
 			$where = "";
 		}
-		$query=$this->db->query("select a.nisn,a.flag,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar ,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag IN ('1','2') and tanggal = curdate() $where");
+		$query=$this->db->query("select a.nisn,a.flag,b.nama_siswa,b.kelas,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar ,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag_2 = '1' and tanggal = curdate() $where");
 		return $query->result();
 	}
 
 	function getpresensiapprovesiswa(){
-		$query=$this->db->query("select a.nisn,b.nama_siswa,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1 and tanggal = curdate() ");
+		$query=$this->db->query("select a.nisn,b.nama_siswa,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag_2 = 1 and tanggal = curdate() ");
 		return $query->result();
 	}
 
@@ -368,19 +370,19 @@ class Madmin extends CI_Model {
 
 	function gethadirsiswa()
 	{
-		$query=$this->db->query("select count(*) totalhadirsiswa from tbl_presensi_siswa where tanggal = curdate() and flag !='2'");
+		$query=$this->db->query("select count(*) totalhadirsiswa from tbl_presensi_siswa where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag !='2'");
 		return $query->result();
 	}	
 
 	function getijinsiswa()
 	{
-		$query=$this->db->query("select count(*) totalijinsiswa from tbl_presensi_siswa where tanggal = curdate() and flag = '2'");
+		$query=$this->db->query("select count(*) totalijinsiswa from tbl_presensi_siswa where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag = '2'");
 		return $query->result();
 	}	
 
 	function gettelatsiswa()
 	{
-		$query=$this->db->query("select count(*) totaltelatsiswa from tbl_presensi_siswa where tanggal = curdate() and jam_masuk > '08:00:00' and flag !='2'");
+		$query=$this->db->query("select count(*) totaltelatsiswa from tbl_presensi_siswa where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and flag !='2'");
 		return $query->result();
 	}	
 	

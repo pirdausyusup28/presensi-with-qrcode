@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             <!-- <div class="card-title d-flex align-items-start justify-content-between"> -->
-                                <form id="updateForm" method="post" action="<?= base_url() ?>Admin/savedatakehadiransiswa">
+                                <form id="updateForm" method="post" action="<?= base_url() ?>Admin/savedatakehadiransiswa" enctype="multipart/form-data">
                                     <div class="">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Nama Siswa</label>
                                         <div class="col-sm-12">
@@ -30,10 +30,16 @@
                                         <div class="col-sm-12">
                                             <select name="flag" class="form-control" id="flag" required>
 												<option value="-">-- Pilih Jenis Kehadiran</option>
-												<option value="0">Masuk</option>
 												<option value="1">Telat</option>
 												<option value="2">Izin</option>
+												<option value="3">Sakit</option>
 											</select>
+                                        </div>
+                                    </div>
+                                    <div class="">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label">Upload Photo Surat Sakit (jika siswa sakit)</label>
+                                        <div class="col-sm-12">
+                                            <input type="file" class="form-control" name="gambar">
                                         </div>
                                     </div>
                                     <br>

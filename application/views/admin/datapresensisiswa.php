@@ -25,7 +25,7 @@
                                             <th>ABSEN MASUK</th>
                                             <th>ABSEN KELUAR</th>
                                             <th>KETERANGAN</th>
-                                            <th><?= ($this->session->userdata('role') == 'ots')?'':'STATUS';?></th>
+                                            <th><?= ($this->session->userdata('role') == 'ots')?'FILE UPLOAD':'STATUS';?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -35,11 +35,11 @@
                                                 $akhir = date_create($v->jam_masuk); // waktu sekarang
                                                 $diff  = date_diff( $awal, $akhir );
                                                 if($diff->h >= 8){
-                                                    $ket = "<span class='badge badge-warning'>Jam Kerja Lebih</span>";
+                                                    $ket = "<span class='badge bg-warning'>Jam Kerja Lebih</span>";
                                                 }elseif($diff->h <= 8){
-                                                    $ket = "<span class='badge badge-danger'>Jam Kerja Kurang</span>";
+                                                    $ket = "<span class='badge bg-danger'>Jam Kerja Kurang</span>";
                                                 }elseif($diff->h == 8){
-                                                    $ket = "<span class='badge badge-success'>Jam Kerja Pas</span>";
+                                                    $ket = "<span class='badge bg-success'>Jam Kerja Pas</span>";
                                                 }
                                             ?>
                                             <tr>
@@ -50,11 +50,20 @@
                                                 <td><?= $v->tanggal ?></td>
                                                 <td><?= $v->jam_masuk ?></td>
                                                 <td><?= $v->jam_keluar ?></td>
-                                                <td><?= $ket?></td>
                                                 <td>
-                                                    <?php if($this->session->userdata('role') !== 'ots'):?>
+                                                    <?php if($v->flag == '3'){?>
+                                                        <span class='badge bg-success'>Sakit</span>
+                                                    <?php }elseif($v->flag == '2'){ ?>
+                                                        <span class='badge bg-danger'>Izin</span>
+                                                    <?php }else{ ?>
+                                                        <span class=''></span>
+                                                    <?php }?>
+                                                </td>
+                                                <td>
+                                                    <?php if($this->session->userdata('role') !== 'ots'){?>
                                                         <a href="<?= base_url('Admin/approvesiswa/') . $v->nisn ?>" class="btn btn-primary btn-sm approve-link">Approve</a>
-                                                    <?php endif?>
+                                                    <?php } ?>
+                                                        <a href="<?= base_url('assets/buktisakit/') . $v->gambar ?>" target="_blank">Lihat Dokumen Upload</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>
@@ -115,8 +124,16 @@
                                             <td><?= $v->tanggal ?></td>
                                             <td><?= $v->jam_masuk ?></td>
                                             <td><?= $v->jam_keluar ?></td>
-                                            <td><?= ($v->flag == '2')?'<span class="badge bg-success">Izin</span>':$ket ?></td>
-                                            <!-- <td><?= ($v->flag == '2')?'<span class="badge bg-danger">Jam Kerja 0</span>':$tjk ?></td> -->
+                                            <td>
+                                                <?php if($v->flag == '3'){?>
+                                                    <span class='badge bg-success'>Sakit</span>
+                                                <?php }elseif($v->flag == '2'){ ?>
+                                                    <span class='badge bg-danger'>Izin</span>
+                                                <?php }else{ ?>
+                                                    <span class=''></span>
+                                                <?php }?>
+                                            </td>
+                                            <!-- <td><?= ($v->flag == '2')?'<span class="badge bg-danger">0</span>':$tjk ?></td> -->
                                             <!-- <td><?= $tlkk ?></td> -->
                                         </tr>
                                     <?php endforeach ?>

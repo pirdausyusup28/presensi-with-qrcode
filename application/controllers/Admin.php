@@ -414,20 +414,20 @@ public function formtambahkalender()
 public function savedatakalender()
 {
 	/*Check submit button */
-	if($this->input->post('save'))
-	{
+	// if($this->input->post('save'))
+	// {
 		$data['tgl_kalender']=$this->input->post('tgl_kalender');
 		$data['deskripsi']=$this->input->post('deskripsi');
 		$response=$this->Madmin->simpankalender($data);
-		if($response==true){
-				echo "<script>alert('Records Saved Successfully');</script>";
+		// if($response==true){
+				// echo "<script>alert('Records Saved Successfully');</script>";
 				redirect('Admin/datakalender','refresh');
-		}
-		else{
-				echo "<script>alert('Records Saved Failed');</script>";
-				redirect('Admin/datakalender','refresh');
-		}
-	}
+	// 	}
+	// 	else{
+	// 			echo "<script>alert('Records Saved Failed');</script>";
+	// 			redirect('Admin/datakalender','refresh');
+	// 	}
+	// }
 }
 
 public function editkalender($id)
@@ -441,34 +441,34 @@ public function editkalender($id)
 public function updatedatakalender()
 {
 	/*Check submit button */
-	if($this->input->post('update'))
-	{
+	// if($this->input->post('update'))
+	// {
 		$id = $this->input->post('id');
 		$tgl_kalender = $this->input->post('tgl_kalender');
 		$deskripsi = $this->input->post('deskripsi');
 		$response=$this->Madmin->updatekalender($id,$tgl_kalender,$deskripsi);
-		if($response==true){
-				echo "<script>alert('Records Update Failed');</script>";
+		// if($response==true){
+				// echo "<script>alert('Records Update Failed');</script>";
 				redirect('Admin/datakalender','refresh');
-		}
-		else{
-				echo "<script>alert('Records Update Successfully');</script>";
-				redirect('Admin/datakalender','refresh');
-		}
-	}
+	// 	}
+	// 	else{
+	// 			echo "<script>alert('Records Update Successfully');</script>";
+	// 			redirect('Admin/datakalender','refresh');
+	// 	}
+	// }
 }
 
 public function hapusdatakalender($id)
 {
 	$response=$this->Madmin->hapuskalender($id);
-	if($response==true){
-			echo "<script>alert('Records Delete Failed');</script>";
+	// if($response==true){
+	// 		echo "<script>alert('Records Delete Failed');</script>";
 			redirect('Admin/datakalender','refresh');
-	}
-	else{
-			echo "<script>alert('Records Delete Successfully');</script>";
-			redirect('Admin/datakalender','refresh');
-	}
+	// }
+	// else{
+	// 		echo "<script>alert('Records Delete Successfully');</script>";
+	// 		redirect('Admin/datakalender','refresh');
+	// }
 }
 
 public function datakelas()
@@ -783,16 +783,42 @@ public function inputkehadiransiswa()
 
 public function savedatakehadiransiswa()
 {
-	/*Check submit button */
-	// if($this->input->post('save'))
-	// {
-		date_default_timezone_set("Asia/Bangkok");
-		$data['nisn']=$this->input->post('nisn');
-		$data['tanggal']= date('Y-m-d');
-		$data['flag']=$this->input->post('flag');
-		$response=$this->Madmin->savedatakehadiransiswa($data);
-		redirect('Admin/presensisiswa','refresh');
-	// }
+    date_default_timezone_set("Asia/Bangkok");
+    
+    $data['nisn'] = $this->input->post('nisn');
+    $data['tanggal'] = date('Y-m-d');
+    $data['flag'] = $this->input->post('flag');
+
+    $this->load->library('upload');
+
+    $config['upload_path']   = './assets/buktisakit/';
+    $config['allowed_types'] = 'gif|jpg|jpeg|png';
+    $config['max_size']      = 1024;
+    $config['max_width']  = 2000;
+	$config['max_height'] = 1500;
+
+    $this->upload->initialize($config);
+
+    if ($this->upload->do_upload('gambar')) {
+        // Get the file data
+        $fileData = $this->upload->data();
+        $data['gambar'] = $fileData['file_name'];
+    } else {
+        $error = array('error' => $this->upload->display_errors());
+        print_r($error);
+        return;
+    }
+
+    // Call the model method to save data
+    $response = $this->Madmin->savedatakehadiransiswa($data);
+
+    if ($response) {
+        echo "<script>alert('Data berhasil disimpan');</script>";
+    } else {
+        echo "<script>alert('Gagal menyimpan data');</script>";
+    }
+
+    redirect('Admin/presensisiswa', 'refresh');
 }
 
 public function informasiakun()
