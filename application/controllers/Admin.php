@@ -129,7 +129,7 @@ class Admin extends CI_Controller {
 	}
 
 	public function laporanpresensi(){
-		$data['nip'] = $this->Madmin->getdataguru();
+		$data['nip'] = $this->Madmin->getdatagurulist();
 		$this->load->view('admin/header_new');
 		$this->load->view('admin/laporanpresensi',$data);
 		$this->load->view('admin/footer_new');
@@ -361,6 +361,7 @@ function beranda() {
 				$sess_data['id'] = $sess->id;
 				$sess_data['username'] = $sess->username;
 				$sess_data['role'] = $sess->role;
+				$sess_data['walikelas'] = $sess->walikelas;
 				$this->session->set_userdata($sess_data);
 			}
 			if($this->session->userdata('username') == ''){

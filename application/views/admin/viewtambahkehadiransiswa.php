@@ -18,6 +18,7 @@
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Nama Siswa</label>
                                         <div class="col-sm-12">
                                             <select name="nisn" class="form-control" id="nisn">
+                                                <option value="-">-- Pilih Siswa --</option>
                                                 <?php foreach($siswa as $k):?>
                                                     <option value="<?= $k->nisn?>"><?= $k->nisn?> || <?= $k->nama_siswa?></option>
                                                 <?php endforeach?>

@@ -9,7 +9,9 @@
                 <div class="col-lg-12 col-md-12 col-6 mb-4">
                     <div class="card">
                         <div class="card-header">
-                            <a href="<?= base_url('admin/inputkehadiran');?>"class="btn btn-warning btn-sm">Input Kehadiran</a><br><br>
+                            <?php if($this->session->userdata('role') == 'admin'):?>
+                                <a href="<?= base_url('admin/inputkehadiran');?>"class="btn btn-warning btn-sm">Input Kehadiran</a><br><br>
+                            <?php endif?>
                         <h5>List Data Presensi</h5>
                         </div>
                         <div class="card-body">
@@ -25,7 +27,9 @@
                                             <th>ABSEN MASUK</th>
                                             <th>ABSEN KELUAR</th>
                                             <th>KETERANGAN</th>
-                                            <th>STATUS</th>
+                                            <?php if($this->session->userdata('role') == 'admin'):?>
+                                                <th>STATUS</th>
+                                            <?php endif?>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -51,10 +55,9 @@
                                                 <td><?= $v->jam_masuk ?></td>
                                                 <td><?= $v->jam_keluar ?></td>
                                                 <td><?= $ket?></td>
-                                                <td>
-                                                    <!-- <input type="checkbox" id="flag" name="flag" class="form-control" value="<?= $v->nip?>"> -->
-                                                    <a href="<?= base_url('Admin/approve/')?><?= $v->nip?>" type="submit" class="btn btn-primary btn-sm">Approve</a>
-                                                </td>
+                                                <?php if($this->session->userdata('role') == 'admin'):?>
+                                                    <td><a href="<?= base_url('Admin/approve/')?><?= $v->nip?>" type="submit" class="btn btn-primary btn-sm">Approve</a></td>
+                                                <?php endif?>
                                             </tr>
                                         <?php endforeach ?>
                                     </tbody>

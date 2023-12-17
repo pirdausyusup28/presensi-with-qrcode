@@ -9,19 +9,15 @@ class Muser extends CI_Model {
 		return $query->result();
 	}
 	public function cek_user($data) {
-			$query = $this->db->get_where('tbl_user', $data);
+			$query = $this->db->query("select
+			a.*,
+			b.nip,
+			b.nama_guru,
+			b.walikelas
+		from
+			tbl_user a
+		left join tbl_guru b on a.username = b.nip where a.username = '".$data['username']."' and a.password = '".$data['password']."'");
 			return $query;
-	}
-
-	public function cek_usercs($data) {
-			$query = $this->db->get_where('tblregistrasionline', $data);
-			return $query;
-	}
-
-	function saveregistrasi($data)
-	{
-        $this->db->insert('tblregistrasionline',$data);
-        return true;
 	}
 
 
@@ -45,12 +41,6 @@ class Muser extends CI_Model {
 		$query=" UPDATE tbl_user SET username = '".$username."',email = '".$email."',password = '".$password."' WHERE id = '".$id."' ";
 		$this->db->query($query);
 	}
-
-	// function deleterecords($id)
-	// {
-	// 	$query=" DELETE FROM `tbl_user` WHERE id = '".$id."' ";
-	// 	$this->db->query($query);
-	// }
 
 	function deleterecords($id)
 	{

@@ -10,7 +10,12 @@ class Madmin extends CI_Model {
 	}
 
 	function getpresensi(){
-		$query=$this->db->query("select a.nip,b.nama_guru,b.guru_mapel,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi a left join tbl_guru b on a.nip = b.nip where flag = 0 and tanggal = curdate() ");
+		if($this->session->userdata('role') == 'guru'){
+			$where = "and a.nip = '".$this->session->userdata('username')."'";
+		}else{
+			$where = "";
+		}
+		$query=$this->db->query("select a.nip,b.nama_guru,b.guru_mapel,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi a left join tbl_guru b on a.nip = b.nip where flag = 0 and tanggal = curdate() $where");
 		return $query->result();
 	}
 
@@ -67,8 +72,25 @@ class Madmin extends CI_Model {
 	}
 
 	function getdataguru(){
-		$this->db->select('a.*,b.*');
-		$this->db->join('tbl_kelas b', 'a.walikelas = b.id_kelas', 'left');
+		if($this->session->userdata('role') == 'guru'){
+			$this->db->select('a.*,b.*');
+			$this->db->join('tbl_kelas b', 'a.walikelas = b.id_kelas', 'left');
+			$this->db->where('a.nip', $this->session->userdata('username'));
+		}else{
+			$this->db->select('a.*,b.*');
+			$this->db->join('tbl_kelas b', 'a.walikelas = b.id_kelas', 'left');
+		}
+		$query=$this->db->get("tbl_guru a");
+		return $query->result();
+	}
+
+	function getdatagurulist(){
+		if($this->session->userdata('role') == 'guru'){
+			$this->db->select('a.*');
+			$this->db->where('a.nip', $this->session->userdata('username'));
+		}else{
+			$this->db->select('a.*');
+		}
 		$query=$this->db->get("tbl_guru a");
 		return $query->result();
 	}
@@ -78,11 +100,23 @@ class Madmin extends CI_Model {
 			$this->db->select('a.*,b.*');
 			$this->db->join('tbl_kelas b', 'a.kelas = b.id_kelas', 'left');
 			$this->db->where('a.nisn', $this->session->userdata('username'));
+			$query=$this->db->get("tbl_siswa a");
+		}else if($this->session->userdata('role') == 'guru'){
+			$query = $this->db->query("select
+			a.id_siswa,
+				a.nisn,
+				a.nama_siswa,
+				a.kelas,
+				b.nip,
+				b.walikelas
+			from
+				tbl_siswa a
+			left join tbl_guru b on a.kelas = b.walikelas where b.nip = '".$this->session->userdata('username')."'");
 		}else{
 			$this->db->select('a.*,b.*');
 			$this->db->join('tbl_kelas b', 'a.kelas = b.id_kelas', 'left');
+			$query=$this->db->get("tbl_siswa a");
 		}
-		$query=$this->db->get("tbl_siswa a");
 		return $query->result();
 	}
 
@@ -109,9 +143,10 @@ class Madmin extends CI_Model {
 
 	function simpanuserguru($data)
 	{
+		$pass = $data['nip'].'ruhama';
 		// Use prepared statements to prevent SQL injection
 		$query = "INSERT INTO tbl_user (username, password,role) VALUES (?, ?, ?)";
-		$this->db->query($query, array($data['nip'], 'PwdGuru','guru'));
+		$this->db->query($query, array($data['nip'], $pass,'guru'));
 	
 		// Check if the query was successful (optional)
 		if ($this->db->affected_rows() > 0) {
@@ -261,149 +296,12 @@ class Madmin extends CI_Model {
         $this->db->insert('tbl_generate_barcode_siswa',$data);
     }
 
-	function getdatatentang()
-	{
-		$query=$this->db->get("tbltentang");
-		return $query->result();
-	}
-
-	function getdatakontak()
-	{
-		$query=$this->db->get("tblkontak");
-		return $query->result();
-	}
-
-	function getproduk()
-	{
-		$query=$this->db->get("tblproduk");
-		return $query->result();
-	}
-
-	function insert($data){
-		$this->db->insert('tblproduk',$data);
-	}
-
-
-	function saverecordstentang($data)
-	{
-        $this->db->insert('tbltentang',$data);
-        return true;
-	}
-
-	function saverecordskontak($data)
-	{
-		// var_dump($data);
-        $this->db->insert('tblkontak',$data);
-        return true;
-	}
-
-
-	function getdataedittentang($id)
-	{
-		$this->db->where('id', $id);
-		$query=$this->db->get("tbltentang");
-		return $query->result();
-	}
-
-	function lihatprodukid($id)
-	{
-		$this->db->where('id', $id);
-		$query=$this->db->get("tblproduk");
-		return $query->result();
-	}
-
-	function getpesananid($idpesanan)
-	{
-		$this->db->where('idpesanan', $idpesanan);
-		$query=$this->db->get("tblpesanan");
-		return $query->result();
-	}
-
 	
-
-
-	function getdataeditkontak($id)
-	{
-		$this->db->where('id', $id);
-		$query=$this->db->get("tblkontak");
-		return $query->result();
-	}
-
-
-	function updaterecordstentang($id,$deskripsi)
-	{
-		$query=" UPDATE tbltentang SET deskripsi = '".$deskripsi."' WHERE id = '".$id."' ";
-		$this->db->query($query);
-	}
-
-	function updaterecordskontak($id,$alamatkantor,$kontakperson)
-	{
-		$query=" UPDATE tblkontak SET alamatkantor = '".$alamatkantor."',kontakperson = '".$kontakperson."' WHERE id = '".$id."' ";
-		$this->db->query($query);
-	}
-	
-
-	function deleterecordstentang($id)
-	{
-		$query="DELETE from tbltentang WHERE id = '".$id."' ";
-		$this->db->query($query);
-	}
-
-	function deleterecordskontak($id)
-	{
-		$query="DELETE from tblkontak WHERE id = '".$id."' ";
-		$this->db->query($query);
-	}
-
-	function deleterecordsproduk($id)
-	{
-		$query="DELETE from tblproduk WHERE id = '".$id."' ";
-		$this->db->query($query);
-	}
-
-
-	function update($data){
-		$where = $this->input->post('id',true);
-		$this->db->where('id', $where);
-		$this->db->update('tblproduk', $data);
-	}
-
-	function updatestatus($idpesanan){
-		$query=" UPDATE tblpesanan SET statuspesanan = 'Sedang Di Proses' WHERE idpesanan = '".$idpesanan."' ";
-		$this->db->query($query);
-	}
-
-	function updatestatusselesai($idpesanan){
-		$query=" UPDATE tblpesanan SET statuspesanan = 'Pesanan Selesai' WHERE idpesanan = '".$idpesanan."' ";
-		$this->db->query($query);
-	}
-
-	
-
-	
-
-	function getpesanan()
-	{
-		$query=$this->db->get("tblpesanan");
-		return $query->result();
-	}
-
-	function getdetailpesanan($id)
-	{
-		$this->db->where('idpesanan', $id);
-		$query=$this->db->get("tblpesanan");
-		return $query->result();
-	}	
-
-
-
-
-
-
-
 	function getpresensisiswa(){
 		if($this->session->userdata('role') == 'ots'){
 			$where = "and a.nisn = '".$this->session->userdata('username')."'";
+		}else if($this->session->userdata('role') == 'guru'){
+			$where = "and b.kelas = '".$this->session->userdata('walikelas')."'";
 		}else{
 			$where = "";
 		}
@@ -444,19 +342,19 @@ class Madmin extends CI_Model {
 
 	function gethadirguru()
 	{
-		$query=$this->db->query("select count(*) totalhadirguru from tbl_presensi where tanggal = curdate() and flag !='2'");
+		$query=$this->db->query("select count(*) totalhadirguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag !='2'");
 		return $query->result();
 	}	
 
 	function getijinguru()
 	{
-		$query=$this->db->query("select count(*) totalijinguru from tbl_presensi where tanggal = curdate() and flag = '2'");
+		$query=$this->db->query("select count(*) totalijinguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag = '2'");
 		return $query->result();
 	}	
 
 	function gettelatguru()
 	{
-		$query=$this->db->query("select count(*) totaltelatguru from tbl_presensi where tanggal = curdate() and jam_masuk > '08:00:00' and flag !='2'");
+		$query=$this->db->query("select count(*) totaltelatguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and flag !='2'");
 		return $query->result();
 	}	
 
