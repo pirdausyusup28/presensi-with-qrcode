@@ -105,7 +105,7 @@
                 <a
                   href="<?= base_url('admin/informasiakun');?>"
                   class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-calendar"></i>
+                  <i class="menu-icon tf-icons bx bx-cog"></i>
                   <div data-i18n="Email">Informasi Akun</div>
                 </a>
               </li>
