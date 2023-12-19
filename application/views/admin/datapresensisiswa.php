@@ -54,7 +54,9 @@
                                                     <?php if($v->flag == '3'){?>
                                                         <span class='badge bg-success'>Sakit</span>
                                                     <?php }elseif($v->flag == '2'){ ?>
-                                                        <span class='badge bg-danger'>Izin</span>
+                                                        <span class='badge bg-warning'>Izin</span>
+                                                    <?php }elseif($v->flag == '1'){ ?>
+                                                        <span class='badge bg-danger'>Alfa</span>
                                                     <?php }else{ ?>
                                                         <span class=''></span>
                                                     <?php }?>

@@ -447,28 +447,13 @@ public function updatedatakalender()
 		$tgl_kalender = $this->input->post('tgl_kalender');
 		$deskripsi = $this->input->post('deskripsi');
 		$response=$this->Madmin->updatekalender($id,$tgl_kalender,$deskripsi);
-		// if($response==true){
-				// echo "<script>alert('Records Update Failed');</script>";
 				redirect('Admin/datakalender','refresh');
-	// 	}
-	// 	else{
-	// 			echo "<script>alert('Records Update Successfully');</script>";
-	// 			redirect('Admin/datakalender','refresh');
-	// 	}
-	// }
 }
 
 public function hapusdatakalender($id)
 {
 	$response=$this->Madmin->hapuskalender($id);
-	// if($response==true){
-	// 		echo "<script>alert('Records Delete Failed');</script>";
 			redirect('Admin/datakalender','refresh');
-	// }
-	// else{
-	// 		echo "<script>alert('Records Delete Successfully');</script>";
-	// 		redirect('Admin/datakalender','refresh');
-	// }
 }
 
 public function datakelas()
@@ -755,22 +740,22 @@ public function inputkehadiran()
 public function savedatakehadiran()
 {
 	/*Check submit button */
-	if($this->input->post('save'))
-	{
+	// if($this->input->post('save'))
+	// {
 		date_default_timezone_set("Asia/Bangkok");
 		$data['nip']=$this->input->post('nip');
 		$data['tanggal']= date('Y-m-d');
 		$data['flag']=$this->input->post('flag');
 		$response=$this->Madmin->savedatakehadiran($data);
-		if($response==true){
-				echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/dataguru','refresh');
-		}
-		else{
-				echo "<script>alert('Records Saved Failed');</script>";
-				redirect('Admin/dataguru','refresh');
-		}
-	}
+		// if($response==true){
+		// 		echo "<script>alert('Records Saved Successfully');</script>";
+				redirect('Admin/datapresensi','refresh');
+		// }
+		// else{
+		// 		echo "<script>alert('Records Saved Failed');</script>";
+		// 		redirect('Admin/datapresensi','refresh');
+		// }
+	// }
 }
 
 public function inputkehadiransiswa()
@@ -788,6 +773,7 @@ public function savedatakehadiransiswa()
     $data['nisn'] = $this->input->post('nisn');
     $data['tanggal'] = date('Y-m-d');
     $data['flag'] = $this->input->post('flag');
+    $data['flag_2'] = '1';
 
     $this->load->library('upload');
 
@@ -800,23 +786,21 @@ public function savedatakehadiransiswa()
     $this->upload->initialize($config);
 
     if ($this->upload->do_upload('gambar')) {
-        // Get the file data
         $fileData = $this->upload->data();
         $data['gambar'] = $fileData['file_name'];
     } else {
-        $error = array('error' => $this->upload->display_errors());
-        print_r($error);
-        return;
+		$fileData = $this->upload->data();
+        $data['gambar'] = 'null.jpg';
     }
 
     // Call the model method to save data
     $response = $this->Madmin->savedatakehadiransiswa($data);
 
-    if ($response) {
-        echo "<script>alert('Data berhasil disimpan');</script>";
-    } else {
-        echo "<script>alert('Gagal menyimpan data');</script>";
-    }
+    // if ($response) {
+    //     echo "<script>alert('Data berhasil disimpan');</script>";
+    // } else {
+    //     echo "<script>alert('Gagal menyimpan data');</script>";
+    // }
 
     redirect('Admin/presensisiswa', 'refresh');
 }

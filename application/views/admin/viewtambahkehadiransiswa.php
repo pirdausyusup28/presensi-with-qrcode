@@ -30,7 +30,7 @@
                                         <div class="col-sm-12">
                                             <select name="flag" class="form-control" id="flag" required>
 												<option value="-">-- Pilih Jenis Kehadiran</option>
-												<option value="1">Telat</option>
+												<option value="1">Alfa</option>
 												<option value="2">Izin</option>
 												<option value="3">Sakit</option>
 											</select>
@@ -74,7 +74,7 @@
                 document.getElementById('updateForm').submit();
                 Swal.fire({
                     title: "Data Berhasil Disimpan",
-                    text: "Silakan Login Ulang",
+                    text: "",
                     icon: "success"
                 });
             }
