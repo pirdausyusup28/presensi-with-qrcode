@@ -200,8 +200,8 @@ public function formtambahguru()
 public function savedataguru()
 {
 	/*Check submit button */
-	if($this->input->post('save'))
-	{
+	// if($this->input->post('save'))
+	// {
 		$data['nip']=$this->input->post('nip');
 		$data['nama_guru']=$this->input->post('nama_guru');
 		$data['jenis_kelamin']=$this->input->post('jenis_kelamin');
@@ -209,14 +209,14 @@ public function savedataguru()
 		$response=$this->Madmin->saverecords($data);
 		if($response==true){
 				$response=$this->Madmin->simpanuserguru($data);
-				echo "<script>alert('Records Saved Successfully');</script>";
+				// echo "<script>alert('Records Saved Successfully');</script>";
 				redirect('Admin/dataguru','refresh');
 		}
 		else{
-				echo "<script>alert('Records Saved Failed');</script>";
+				// echo "<script>alert('Records Saved Failed');</script>";
 				redirect('Admin/dataguru','refresh');
 		}
-	}
+	// }
 }
 
 public function editguru($id)
@@ -231,36 +231,36 @@ public function editguru($id)
 public function updatedataguru()
 {
 	/*Check submit button */
-	if($this->input->post('update'))
-	{
+	// if($this->input->post('update'))
+	// {
 		$id = $this->input->post('id_guru');
 		$nip = $this->input->post('nip');
 		$nama_guru = $this->input->post('nama_guru');
 		$jenis_kelamin = $this->input->post('jenis_kelamin');
 		$walikelas =$this->input->post('walikelas');
 		$response=$this->Madmin->updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas);
-		if($response==true){
-				echo "<script>alert('Records Update Failed');</script>";
+		// if($response==true){
+		// 		echo "<script>alert('Records Update Failed');</script>";
 				redirect('Admin/dataguru','refresh');
-		}
-		else{
-				echo "<script>alert('Records Update Successfully');</script>";
-				redirect('Admin/dataguru','refresh');
-		}
-	}
+		// }
+		// else{
+		// 		echo "<script>alert('Records Update Successfully');</script>";
+		// 		redirect('Admin/dataguru','refresh');
+		// }
+	// }
 }
 
 public function hapusdataguru($id)
 {
 	$response=$this->Madmin->deleterecords($id);
-	if($response==true){
-			echo "<script>alert('Records Delete Failed');</script>";
+	// if($response==true){
+	// 		echo "<script>alert('Records Delete Failed');</script>";
 			redirect('Admin/dataguru','refresh');
-	}
-	else{
-			echo "<script>alert('Records Delete Successfully');</script>";
-			redirect('Admin/dataguru','refresh');
-	}
+	// }
+	// else{
+	// 		echo "<script>alert('Records Delete Successfully');</script>";
+	// 		redirect('Admin/dataguru','refresh');
+	// }
 }
 
 /////////////////////////// BATAS GURU //////////////////////////////////////////////
