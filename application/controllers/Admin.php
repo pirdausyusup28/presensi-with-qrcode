@@ -549,8 +549,8 @@ public function formtambahsiswa()
 public function savedatasiswa()
 {
 	/*Check submit button */
-	if($this->input->post('save'))
-	{
+	// if($this->input->post('save'))
+	// {
 		$data['nisn']=$this->input->post('nisn');
 		$data['nama_siswa']=$this->input->post('nama_siswa');
 		$data['kelas']=$this->input->post('kelas');
@@ -560,14 +560,14 @@ public function savedatasiswa()
 		$response=$this->Madmin->simpansiswa($data);
 		if($response==true){
 				$response=$this->Madmin->simpanusersiswa($data);
-				echo "<script>alert('Records Saved Successfully');</script>";
+				// echo "<script>alert('Records Saved Successfully');</script>";
 				redirect('Admin/datasiswa','refresh');
 		}
 		else{
-				echo "<script>alert('Records Saved Failed');</script>";
+				// echo "<script>alert('Records Saved Failed');</script>";
 				redirect('Admin/datasiswa','refresh');
 		}
-	}
+	// }
 }
 
 public function editsiswa($id)
@@ -582,8 +582,8 @@ public function editsiswa($id)
 public function updatedatasiswa()
 {
 	/*Check submit button */
-	if($this->input->post('update'))
-	{
+	// if($this->input->post('update'))
+	// {
 		$id = $this->input->post('id_siswa');
 		$nisn = $this->input->post('nisn');
 		$nama_siswa = $this->input->post('nama_siswa');
@@ -593,25 +593,25 @@ public function updatedatasiswa()
 		$status = $this->input->post('status');
 		$response=$this->Madmin->updatesiswa($id,$nisn,$nama_siswa,$kelas,$orangtua_siswa,$alamat_siswa,$status);
 		if($response==true){
-				echo "<script>alert('Records Update Failed');</script>";
+				// echo "<script>alert('Records Update Failed');</script>";
 				redirect('Admin/datasiswa','refresh');
 		}
 		else{
-				echo "<script>alert('Records Update Successfully');</script>";
+				// echo "<script>alert('Records Update Successfully');</script>";
 				redirect('Admin/datasiswa','refresh');
 		}
-	}
+	// }
 }
 
 public function hapusdatasiswa($id)
 {
 	$response=$this->Madmin->hapussiswa($id);
 	if($response==true){
-			echo "<script>alert('Records Delete Failed');</script>";
+			// echo "<script>alert('Records Delete Failed');</script>";
 			redirect('Admin/datasiswa','refresh');
 	}
 	else{
-			echo "<script>alert('Records Delete Successfully');</script>";
+			// echo "<script>alert('Records Delete Successfully');</script>";
 			redirect('Admin/datasiswa','refresh');
 	}
 }
