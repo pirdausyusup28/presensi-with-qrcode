@@ -250,17 +250,10 @@ public function updatedataguru()
 	// }
 }
 
-public function hapusdataguru($id)
+public function resetpasswordguru($nip)
 {
-	$response=$this->Madmin->deleterecords($id);
-	// if($response==true){
-	// 		echo "<script>alert('Records Delete Failed');</script>";
-			redirect('Admin/dataguru','refresh');
-	// }
-	// else{
-	// 		echo "<script>alert('Records Delete Successfully');</script>";
-	// 		redirect('Admin/dataguru','refresh');
-	// }
+	$response=$this->Madmin->resetpasswordguru($nip);
+	redirect('Admin/dataguru','refresh');
 }
 
 /////////////////////////// BATAS GURU //////////////////////////////////////////////

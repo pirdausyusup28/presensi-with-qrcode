@@ -288,6 +288,15 @@ class Madmin extends CI_Model {
 		$query="DELETE from tbl_kelas WHERE id_kelas = '".$id."' ";
 		$this->db->query($query);
 	}
+
+	function resetpasswordguru($nip)
+	{
+		$pass = $nip.'ruhama';
+		$query="UPDATE tbl_user SET password = '".$pass."' WHERE username = '".$nip."' ";
+		$this->db->query($query);
+	}
+
+	
 	
 
 	function simpanqrcode($nip,$image_name){
