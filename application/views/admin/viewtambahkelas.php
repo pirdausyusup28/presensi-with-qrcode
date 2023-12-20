@@ -13,7 +13,7 @@
                         </div>
                         <div class="card-body">
                             <!-- <div class="card-title d-flex align-items-start justify-content-between"> -->
-                                <form method="post" action="<?= base_url() ?>Admin/savedatakelas">
+                                <form id="updateForm" method="post" action="<?= base_url() ?>Admin/savedatakelas">
                                     <div class="">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Nama Kelas</label>
                                         <div class="col-sm-12">
@@ -22,7 +22,7 @@
                                     </div><br>
                                     <div class="">
                                         <div class="col-sm-10">
-                                            <input type="submit" name="save" class="btn btn-primary" value="Simpan"/>
+                                            <input type="button" name="save" class="btn btn-primary" value="Simpan" onclick="showConfirmation()"/>
                                         </div>
                                     </div>
                                 </form>
@@ -34,4 +34,27 @@
         </div>
     </div>
 </div>
-<!-- / Content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    function showConfirmation() {
+        Swal.fire({
+            title: 'Konfirmasi',
+            text: 'Apakah Yakin Data Yang di input sudah Benar',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                document.getElementById('updateForm').submit();
+                Swal.fire({
+                    title: "Data Berhasil Disimpan",
+                    text: "",
+                    icon: "success"
+                });
+            }
+        });
+    }
+</script>

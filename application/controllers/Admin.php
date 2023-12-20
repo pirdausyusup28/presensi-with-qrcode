@@ -474,19 +474,19 @@ public function formtambahkelas()
 public function savedatakelas()
 {
 	/*Check submit button */
-	if($this->input->post('save'))
-	{
+	// if($this->input->post('save'))
+	// {
 		$data['nama_kelas']=$this->input->post('nama_kelas');
 		$response=$this->Madmin->simpankelas($data);
-		if($response==true){
-				echo "<script>alert('Records Saved Successfully');</script>";
+		// if($response==true){
+				// echo "<script>alert('Records Saved Successfully');</script>";
 				redirect('Admin/datakelas','refresh');
-		}
-		else{
-				echo "<script>alert('Records Saved Failed');</script>";
-				redirect('Admin/datakelas','refresh');
-		}
-	}
+	// 	}
+	// 	else{
+	// 			echo "<script>alert('Records Saved Failed');</script>";
+	// 			redirect('Admin/datakelas','refresh');
+	// 	}
+	// }
 }
 
 public function editkelas($id)
