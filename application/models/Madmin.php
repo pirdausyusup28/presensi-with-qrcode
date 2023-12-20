@@ -296,6 +296,13 @@ class Madmin extends CI_Model {
 		$this->db->query($query);
 	}
 
+	function resetpasswordsiswa($nisn)
+	{
+		$pass = $nisn.'ruhama';
+		$query="UPDATE tbl_user SET password = '".$pass."' WHERE username = '".$nisn."' ";
+		$this->db->query($query);
+	}
+
 	
 	
 

@@ -40,6 +40,7 @@
                                                 <td>
                                                     <a href="<?= base_url('Admin/editsiswa/'); ?><?= $v->id_siswa; ?>" class="btn btn-warning btn-sm">Edit</a>
                                                     <a href="<?= base_url('Admin/hapusdatasiswa/'); ?><?= $v->id_siswa; ?>" class="btn btn-danger btn-sm hapus-link">Hapus</a>
+                                                    <a href="<?= base_url('Admin/resetpasswordsiswa/'); ?><?= $v->nisn; ?>" class="btn btn-primary btn-sm reset-link">Reset Password</a>
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>
@@ -79,6 +80,28 @@
                 // If confirmed, navigate to the approval URL
                 if (result.isConfirmed) {
                     window.location.href = hapusUrl;
+                }
+            });
+        });
+        $("a.reset-link").click(function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Get the URL from the href attribute
+            var resetUrl = $(this).attr("href");
+
+            // Display SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Yakin Ingin Reset Password data ini ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                // If confirmed, navigate to the approval URL
+                if (result.isConfirmed) {
+                    window.location.href = resetUrl;
                 }
             });
         });

@@ -256,6 +256,12 @@ public function resetpasswordguru($nip)
 	redirect('Admin/dataguru','refresh');
 }
 
+public function resetpasswordsiswa($nisn)
+{
+	$response=$this->Madmin->resetpasswordsiswa($nisn);
+	redirect('Admin/datasiswa','refresh');
+}
+
 /////////////////////////// BATAS GURU //////////////////////////////////////////////
 
 /////////////////////////// GENERATE QR CODE //////////////////////////////////
