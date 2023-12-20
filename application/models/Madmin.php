@@ -20,7 +20,7 @@ class Madmin extends CI_Model {
 	}
 
 	function getpresensi_ap(){
-		$query=$this->db->query("select a.nip,a.flag,b.nama_guru,b.guru_mapel,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi a left join tbl_guru b on a.nip = b.nip where flag IN ('1','2') and tanggal = curdate() ");
+		$query=$this->db->query("select a.nip,a.flag,b.nama_guru,b.guru_mapel,a.tanggal, DATE_FORMAT(a.jam_masuk, '%H:%i') AS jam_masuk,DATE_FORMAT(a.jam_keluar, '%H:%i') AS jam_keluar from tbl_presensi a left join tbl_guru b on a.nip = b.nip where flag IN ('1','2','3') and tanggal = curdate() ");
 		return $query->result();
 	}
 
