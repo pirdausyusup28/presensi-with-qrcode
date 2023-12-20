@@ -749,11 +749,11 @@ public function savedatakehadiran()
 		$response=$this->Madmin->savedatakehadiran($data);
 		// if($response==true){
 		// 		echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/datapresensi','refresh');
+				redirect('Admin/presensi','refresh');
 		// }
 		// else{
 		// 		echo "<script>alert('Records Saved Failed');</script>";
-		// 		redirect('Admin/datapresensi','refresh');
+		// 		redirect('Admin/presensi','refresh');
 		// }
 	// }
 }

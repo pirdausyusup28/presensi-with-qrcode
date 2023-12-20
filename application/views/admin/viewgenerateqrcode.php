@@ -36,7 +36,7 @@
                                             <td><img style="width: 100px;" src="<?php echo base_url().'assets/images/'.$v->gambar;?>"></td>
                                             <td>
 												<a href="<?= base_url('Admin/cetakqrcode/'); ?><?= $v->id_barcode ; ?>" class="btn btn-warning btn-sm">Cetak</a>
-                                                <a href="<?= base_url('Admin/hapusqrcode/'); ?><?= $v->id_barcode ; ?>" class="btn btn-danger btn-sm">Hapus</a>
+                                                <a href="<?= base_url('Admin/hapusqrcode/'); ?><?= $v->id_barcode ; ?>" class="btn btn-danger btn-sm hapus-link">Hapus</a>
                                             </td>
                                         </tr>
                                     <?php endforeach ?>
@@ -50,4 +50,34 @@
         </div>
     </div>
 </div>
-<!-- / Content -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<!-- Include SweetAlert -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    $(document).ready(function() {
+        // Intercept the click event on the 'Approve' link
+        $("a.hapus-link").click(function(event) {
+            event.preventDefault(); // Prevent the default link behavior
+
+            // Get the URL from the href attribute
+            var hapusUrl = $(this).attr("href");
+
+            // Display SweetAlert confirmation dialog
+            Swal.fire({
+                title: 'Konfirmasi',
+                text: 'Apakah Yakin Ingin menghapus data ini ?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes'
+            }).then((result) => {
+                // If confirmed, navigate to the approval URL
+                if (result.isConfirmed) {
+                    window.location.href = hapusUrl;
+                }
+            });
+        });
+    });
+</script>
