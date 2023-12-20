@@ -300,6 +300,12 @@ class Madmin extends CI_Model {
 		$this->db->query($query);
 	}
 
+	function hapusguru($id)
+	{
+		$query="DELETE from tbl_guru WHERE id_guru = '".$id."' ";
+		$this->db->query($query);
+	}
+
 	function resetpasswordguru($nip)
 	{
 		$pass = $nip.'ruhama';

@@ -246,6 +246,17 @@ public function updatedataguru()
 	// }
 }
 
+public function hapusdataguru($id)
+	{
+		$response=$this->Madmin->hapusguru($id);
+		if($response==true){
+		        redirect('Admin/dataguru','refresh');
+		}
+		else{
+		        redirect('Admin/dataguru','refresh');
+		}
+	}
+
 public function resetpasswordguru($nip)
 {
 	$response=$this->Madmin->resetpasswordguru($nip);
