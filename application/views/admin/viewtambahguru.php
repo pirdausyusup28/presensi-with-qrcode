@@ -82,11 +82,11 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 document.getElementById('updateForm').submit();
-                Swal.fire({
-                    title: "Data Berhasil Disimpan",
-                    text: "",
-                    icon: "success"
-                });
+                // Swal.fire({
+                //     title: "Data Berhasil Disimpan",
+                //     text: "",
+                //     icon: "success"
+                // });
             }
         });
     }

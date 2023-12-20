@@ -144,10 +144,21 @@ class Madmin extends CI_Model {
 		return $query->result();
 	}
 
+	public function ceknip($data)
+    {
+		$this->db->where($data);
+        $query = $this->db->get('tbl_guru');
+        return $query->num_rows() > 0;
+    }
+
 	function saverecords($data)
 	{
-        $this->db->insert('tbl_guru',$data);
-        return true;
+		if (!$this->ceknip($data)) {
+            $this->db->insert('tbl_guru', $data);
+            return true;
+        } else {
+            return false;
+        }
 	}
 
 	function simpanuserguru($data)

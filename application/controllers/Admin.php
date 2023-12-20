@@ -199,24 +199,20 @@ public function formtambahguru()
 
 public function savedataguru()
 {
-	/*Check submit button */
-	// if($this->input->post('save'))
-	// {
-		$data['nip']=$this->input->post('nip');
-		$data['nama_guru']=$this->input->post('nama_guru');
-		$data['jenis_kelamin']=$this->input->post('jenis_kelamin');
-		$data['walikelas']=$this->input->post('walikelas');
-		$response=$this->Madmin->saverecords($data);
-		if($response==true){
-				$response=$this->Madmin->simpanuserguru($data);
-				// echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/dataguru','refresh');
-		}
-		else{
-				// echo "<script>alert('Records Saved Failed');</script>";
-				redirect('Admin/dataguru','refresh');
-		}
-	// }
+	$data['nip']=$this->input->post('nip');
+	$data['nama_guru']=$this->input->post('nama_guru');
+	$data['jenis_kelamin']=$this->input->post('jenis_kelamin');
+	$data['walikelas']=$this->input->post('walikelas');
+	$response=$this->Madmin->saverecords($data);
+	if($response==true){
+		$response=$this->Madmin->simpanuserguru($data);
+		$this->session->set_flashdata('success', 'Data berhasil disimpan');
+		redirect('Admin/dataguru','refresh');
+	}
+	else{
+		$this->session->set_flashdata('error', 'Data yang di input sudah ada');
+		redirect('Admin/dataguru','refresh');
+	}
 }
 
 public function editguru($id)

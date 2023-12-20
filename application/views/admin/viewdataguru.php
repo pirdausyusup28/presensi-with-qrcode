@@ -9,7 +9,18 @@
                 <div class="col-lg-12 col-md-12 col-6 mb-4">
                     <div class="card">
                         <div class="card-header">
-                            <h5>List Data guru  </h5>
+                            <h5>List Data guru  </h5><br>
+                            <?php if ($this->session->flashdata('error')): ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong><?php echo $this->session->flashdata('error'); ?></strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php elseif ($this->session->flashdata('success')): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong><?php echo $this->session->flashdata('success'); ?></strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?><br>
                             <a href="<?= base_url('Admin/formtambahguru '); ?>" class="btn btn-primary btn-sm">Tambah guru   </a>
                         </div>
                         <div class="card-body">
