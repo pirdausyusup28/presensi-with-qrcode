@@ -235,14 +235,14 @@ public function updatedataguru()
 		$jenis_kelamin = $this->input->post('jenis_kelamin');
 		$walikelas =$this->input->post('walikelas');
 		$response=$this->Madmin->updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas);
-		// if($response==true){
-		// 		echo "<script>alert('Records Update Failed');</script>";
+		if($response==true){
+				$this->session->set_flashdata('success', 'Data berhasil diupdate');
 				redirect('Admin/dataguru','refresh');
-		// }
-		// else{
-		// 		echo "<script>alert('Records Update Successfully');</script>";
-		// 		redirect('Admin/dataguru','refresh');
-		// }
+		}
+		else{
+				$this->session->set_flashdata('error', 'Data gagal diupdate');
+				redirect('Admin/dataguru','refresh');
+		}
 	// }
 }
 

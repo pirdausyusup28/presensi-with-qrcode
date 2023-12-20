@@ -255,6 +255,11 @@ class Madmin extends CI_Model {
 	{
 		$query=" UPDATE tbl_guru SET nip = '".$nip."',nama_guru = '".$nama_guru."',jenis_kelamin = '".$jenis_kelamin."' ,walikelas = '".$walikelas."' WHERE id_guru = '".$id."'";
 		$this->db->query($query);
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false; // or handle the error as needed
+		}
 	}
 
 	function updatekalender($id,$tgl_kalender,$deskripsi)
@@ -379,8 +384,6 @@ class Madmin extends CI_Model {
 		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn,
 		b.nama_siswa,c.nama_kelas,
 		a.tanggal order by a.tanggal asc");
-		echo $query;
-		die();
 		return $query->result();
 	}
 
