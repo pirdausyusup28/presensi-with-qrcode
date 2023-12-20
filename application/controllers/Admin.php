@@ -288,8 +288,8 @@ public function resetpasswordsiswa($nisn)
 
 	public function simpanqrcode()
 	{
-		if($this->input->post('save'))
-		{
+		// if($this->input->post('save'))
+		// {
 		$nip = $this->input->post('nip');
         $this->load->library('ciqrcode'); //pemanggilan library QR CODE
  
@@ -313,7 +313,7 @@ public function resetpasswordsiswa($nisn)
  
         $this->Madmin->simpanqrcode($nip,$image_name); //simpan ke database
         redirect('Admin/generateqrcode'); //redirect ke mahasiswa usai simpan data
-		}
+		// }
 	}
 
 	public function hapusqrcode($id)
