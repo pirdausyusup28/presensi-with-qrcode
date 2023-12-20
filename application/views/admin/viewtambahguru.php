@@ -30,7 +30,7 @@
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Jenis Kelamin</label>
                                         <div class="col-sm-12">
                                             <select name="jenis_kelamin" class="form-control" id="jenis_kelamin">
-												<option value="-">-- Pilih Jenis kelamin</option>
+												<option value="-">-- Pilih Jenis kelamin --</option>
 												<option value="Pria">Pria</option>
 												<option value="Wanita">Wanita</option>
 											</select>
@@ -40,6 +40,7 @@
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Wali Kelas</label>
                                         <div class="col-sm-12">
                                             <select name="walikelas" class="form-control" id="walikelas">
+												<option value="-">-- Pilih Wali Kelas -- </option>
                                                 <?php foreach($kelas as $k):?>
                                                     <option value="<?= $k->id_kelas?>"><?= $k->nama_kelas?></option>
                                                 <?php endforeach?>
@@ -82,6 +83,8 @@
         }).then((result) => {
             if($("#nip").val() == ''){
                 alert('NIP tidak boleh kosong');
+            }else if($("#nama_guru").val() == ''){
+                alert('Nama Guru tidak boleh kosong');
             }else{
                 if (result.isConfirmed) {
                 document.getElementById('updateForm').submit();
