@@ -17,13 +17,13 @@
                                     <div class="">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">NIP</label>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" id="nip" name="nip" placeholder="">
+                                            <input type="text" class="form-control" id="nip" name="nip" placeholder="" required>
                                         </div>
                                     </div>
                                     <div class="">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Nama Guru</label>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" id="nama_guru" name="nama_guru" placeholder="">
+                                            <input type="text" class="form-control" id="nama_guru" name="nama_guru" placeholder="" required>
                                         </div>
                                     </div>
 									<div class="">
@@ -80,14 +80,14 @@
             cancelButtonColor: '#d33',
             confirmButtonText: 'Yes'
         }).then((result) => {
-            if (result.isConfirmed) {
+            if($("#nip").val() == ''){
+                alert('NIP tidak boleh kosong');
+            }else{
+                if (result.isConfirmed) {
                 document.getElementById('updateForm').submit();
-                // Swal.fire({
-                //     title: "Data Berhasil Disimpan",
-                //     text: "",
-                //     icon: "success"
-                // });
             }
+            }
+            
         });
     }
 </script>
