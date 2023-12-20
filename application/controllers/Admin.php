@@ -749,7 +749,7 @@ public function savedatakehadiran()
 		$response=$this->Madmin->savedatakehadiran($data);
 		// if($response==true){
 		// 		echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/datapresensi','refresh');
+				redirect('admin/presensi','refresh');
 		// }
 		// else{
 		// 		echo "<script>alert('Records Saved Failed');</script>";
@@ -807,10 +807,20 @@ public function savedatakehadiransiswa()
 
 public function informasiakun()
 {
-	$data['akun'] = $this->Muser->getdataakun();
+	if ($this->session->userdata('username') == ''){
+		redirect('admin/login','refeesh');
+	}
+	else 
+	{
+		$data['akun'] = $this->Muser->getdataakun();
 	$this->load->view('admin/header_new');
 	$this->load->view('admin/vieweditakun',$data);
 	$this->load->view('admin/footer_new');
+	}
+	// $data['akun'] = $this->Muser->getdataakun();
+	// $this->load->view('admin/header_new');
+	// $this->load->view('admin/vieweditakun',$data);
+	// $this->load->view('admin/footer_new');
 }
 
 public function updateakun()
