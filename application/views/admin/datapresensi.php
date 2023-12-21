@@ -22,7 +22,7 @@
                                             <th>#</th>
                                             <th>NIP</th>
                                             <th>Nama Guru</th>
-                                            <th>Guru Mapel</th>
+                                            <!-- <th>Guru Mapel</th> -->
                                             <th>TANGGAL</th>
                                             <th>ABSEN MASUK</th>
                                             <th>ABSEN KELUAR</th>
@@ -50,7 +50,7 @@
                                                 <td><?= $no++; ?></td>
                                                 <td><?= $v->nip ?></td>
                                                 <td><?= $v->nama_guru ?></td>
-                                                <td><?= $v->guru_mapel ?></td>
+                                                <!-- <td><?= $v->guru_mapel ?></td> -->
                                                 <td><?= $v->tanggal ?></td>
                                                 <td><?= $v->jam_masuk ?></td>
                                                 <td><?= $v->jam_keluar ?></td>
@@ -78,7 +78,7 @@
                                         <th>#</th>
                                         <th>NIP</th>
                                         <th>Nama Guru</th>
-                                        <th>Guru Mapel</th>
+                                        <!-- <th>Guru Mapel</th> -->
                                         <th>TANGGAL</th>
                                         <th>ABSEN MASUK</th>
                                         <th>ABSEN KELUAR</th>
@@ -113,7 +113,7 @@
                                             <td><?= $no++; ?></td>
                                             <td><?= $v->nip ?></td>
                                             <td><?= $v->nama_guru ?></td>
-                                            <td><?= $v->guru_mapel ?></td>
+                                            <!-- <td><?= $v->guru_mapel ?></td> -->
                                             <td><?= $v->tanggal ?></td>
                                             <td><?= $v->jam_masuk ?></td>
                                             <td><?= $v->jam_keluar ?></td>
