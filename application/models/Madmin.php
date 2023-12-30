@@ -191,24 +191,55 @@ class Madmin extends CI_Model {
 		}
 	}
 
-	
+	public function cekkalender($data)
+    {
+		$this->db->where($data);
+        $query = $this->db->get('tbl_kalender');
+        return $query->num_rows() > 0;
+    }
 
 	function simpankalender($data)
 	{
-        $this->db->insert('tbl_kalender',$data);
-        return true;
+        if (!$this->cekkalender($data)) {
+            $this->db->insert('tbl_kalender', $data);
+            return true;
+        } else {
+            return false;
+        }
 	}
+
+	public function ceknisn($data)
+    {
+		$this->db->where($data);
+        $query = $this->db->get('tbl_siswa');
+        return $query->num_rows() > 0;
+    }
 
 	function simpansiswa($data)
 	{
-        $this->db->insert('tbl_siswa',$data);
-        return true;
+		if (!$this->ceknisn($data)) {
+            $this->db->insert('tbl_siswa', $data);
+            return true;
+        } else {
+            return false;
+        }
 	}
+
+	public function cekkelas($data)
+    {
+		$this->db->where($data);
+        $query = $this->db->get('tbl_kelas');
+        return $query->num_rows() > 0;
+    }
 
 	function simpankelas($data)
 	{
-        $this->db->insert('tbl_kelas',$data);
-        return true;
+		if (!$this->cekkelas($data)) {
+            $this->db->insert('tbl_kelas', $data);
+            return true;
+        } else {
+            return false;
+        }
 	}
 
 	function savedatakehadiran($data)
@@ -266,18 +297,33 @@ class Madmin extends CI_Model {
 	{
 		$query=" UPDATE tbl_kalender SET tgl_kalender = '".$tgl_kalender."',deskripsi = '".$deskripsi."' WHERE id = '".$id."'";
 		$this->db->query($query);
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false; // or handle the error as needed
+		}
 	}
 
 	function updatekelas($id,$nama_kelas)
 	{
 		$query=" UPDATE tbl_kelas SET nama_kelas = '".$nama_kelas."' WHERE id_kelas = '".$id."'";
 		$this->db->query($query);
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false; // or handle the error as needed
+		}
 	}
 
 	function updatesiswa($id,$nisn,$nama_siswa,$kelas,$orangtua_siswa,$alamat_siswa,$status)
 	{
 		$query=" UPDATE tbl_siswa SET nisn = '".$nisn."',nama_siswa = '".$nama_siswa."',kelas = '".$kelas."',orangtua_siswa = '".$orangtua_siswa."',alamat_siswa = '".$alamat_siswa."',status = '".$status."' WHERE id_siswa = '".$id."'";
 		$this->db->query($query);
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false; // or handle the error as needed
+		}
 	}
 
 	function deleterecords($id)
@@ -326,14 +372,32 @@ class Madmin extends CI_Model {
 	}
 
 	
-	
+	public function cekqrcode($data)
+    {
+		$this->db->where($data);
+        $query = $this->db->get('tbl_generate_barcode');
+        return $query->num_rows() > 0;
+    }
 
 	function simpanqrcode($nip,$image_name){
         $data = array(
             'nip'  	=> $nip, 
             'gambar'   		=> $image_name
         );
-        $this->db->insert('tbl_generate_barcode',$data);
+
+		if (!$this->cekqrcode($data)) {
+            $this->db->insert('tbl_generate_barcode', $data);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+	public function cekqrcodesiswa($data)
+    {
+		$this->db->where($data);
+        $query = $this->db->get('tbl_generate_barcode');
+        return $query->num_rows() > 0;
     }
 
 	function simpanqrcodesiswa($nisn,$image_name){
@@ -341,7 +405,13 @@ class Madmin extends CI_Model {
             'nisn'  	=> $nisn, 
             'gambar'   		=> $image_name
         );
-        $this->db->insert('tbl_generate_barcode_siswa',$data);
+
+		if (!$this->cekqrcodesiswa($data)) {
+            $this->db->insert('tbl_generate_barcode_siswa', $data);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 	

@@ -10,6 +10,17 @@
                     <div class="card">
                         <div class="card-header">
                             <h5>List Data siswa  </h5>
+                            <?php if ($this->session->flashdata('error')): ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong><?php echo $this->session->flashdata('error'); ?></strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php elseif ($this->session->flashdata('success')): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong><?php echo $this->session->flashdata('success'); ?></strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?><br>
                             <a href="<?= base_url('Admin/formtambahsiswa '); ?>" class="btn btn-primary btn-sm">Tambah siswa   </a>
                         </div>
                         <div class="card-body">

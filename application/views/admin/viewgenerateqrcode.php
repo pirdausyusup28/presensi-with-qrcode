@@ -10,6 +10,17 @@
                     <div class="card">
                         <div class="card-header">
                         <h5>List Data Qr Code  </h5>
+                        <?php if ($this->session->flashdata('error')): ?>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                    <strong><?php echo $this->session->flashdata('error'); ?></strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php elseif ($this->session->flashdata('success')): ?>
+                                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                    <strong><?php echo $this->session->flashdata('success'); ?></strong>
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                </div>
+                            <?php endif; ?><br>
                         <a href="<?= base_url('Admin/formtambahqrcode '); ?>" class="btn btn-primary btn-sm">Tambah Qr Code</a>
                         <a href="<?= base_url('Absen/sqanqrcode '); ?>" class="btn btn-success btn-sm" target="_blank">Absen Scan QrCode</a>
                         </div>

@@ -311,8 +311,15 @@ public function resetpasswordsiswa($nisn)
         $params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
         $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
  
-        $this->Madmin->simpanqrcode($nip,$image_name); //simpan ke database
-        redirect('Admin/generateqrcode'); //redirect ke mahasiswa usai simpan data
+        $response = $this->Madmin->simpanqrcode($nip,$image_name); //simpan ke database
+		if($response==true){
+			$this->session->set_flashdata('success', 'QrCode berhasil digenerate');
+			redirect('Admin/generateqrcode','refresh');
+		}
+		else{
+			$this->session->set_flashdata('error', 'QrCode sudah ada');
+			redirect('Admin/generateqrcode','refresh');
+		}
 		// }
 	}
 
@@ -419,21 +426,17 @@ public function formtambahkalender()
 
 public function savedatakalender()
 {
-	/*Check submit button */
-	// if($this->input->post('save'))
-	// {
 		$data['tgl_kalender']=$this->input->post('tgl_kalender');
 		$data['deskripsi']=$this->input->post('deskripsi');
 		$response=$this->Madmin->simpankalender($data);
-		// if($response==true){
-				// echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/datakalender','refresh');
-	// 	}
-	// 	else{
-	// 			echo "<script>alert('Records Saved Failed');</script>";
-	// 			redirect('Admin/datakalender','refresh');
-	// 	}
-	// }
+		if($response==true){
+			$this->session->set_flashdata('success', 'Data berhasil disimpan');
+			redirect('Admin/datakalender','refresh');
+		}
+		else{
+			$this->session->set_flashdata('error', 'Data yang di input sudah ada');
+			redirect('Admin/datakalender','refresh');
+		}
 }
 
 public function editkalender($id)
@@ -446,14 +449,18 @@ public function editkalender($id)
 
 public function updatedatakalender()
 {
-	/*Check submit button */
-	// if($this->input->post('update'))
-	// {
 		$id = $this->input->post('id');
 		$tgl_kalender = $this->input->post('tgl_kalender');
 		$deskripsi = $this->input->post('deskripsi');
 		$response=$this->Madmin->updatekalender($id,$tgl_kalender,$deskripsi);
-				redirect('Admin/datakalender','refresh');
+		if($response==true){
+			$this->session->set_flashdata('success', 'Data berhasil diupdate');
+			redirect('Admin/datakalender','refresh');
+		}
+		else{
+			$this->session->set_flashdata('error', 'Data gagal diupdate');
+			redirect('Admin/datakalender','refresh');
+		}
 }
 
 public function hapusdatakalender($id)
@@ -479,20 +486,16 @@ public function formtambahkelas()
 
 public function savedatakelas()
 {
-	/*Check submit button */
-	// if($this->input->post('save'))
-	// {
 		$data['nama_kelas']=$this->input->post('nama_kelas');
 		$response=$this->Madmin->simpankelas($data);
-		// if($response==true){
-				// echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/datakelas','refresh');
-	// 	}
-	// 	else{
-	// 			echo "<script>alert('Records Saved Failed');</script>";
-	// 			redirect('Admin/datakelas','refresh');
-	// 	}
-	// }
+		if($response==true){
+			$this->session->set_flashdata('success', 'Data berhasil disimpan');
+			redirect('Admin/datakelas','refresh');
+		}
+		else{
+			$this->session->set_flashdata('error', 'Data yang di input sudah ada');
+			redirect('Admin/datakelas','refresh');
+		}
 }
 
 public function editkelas($id)
@@ -506,20 +509,20 @@ public function editkelas($id)
 public function updatedatakelas()
 {
 	/*Check submit button */
-	if($this->input->post('update'))
-	{
+	// if($this->input->post('update'))
+	// {
 		$id = $this->input->post('id');
 		$nama_kelas = $this->input->post('nama_kelas');
 		$response=$this->Madmin->updatekelas($id,$nama_kelas);
 		if($response==true){
-				echo "<script>alert('Records Update Failed');</script>";
-				redirect('Admin/datakelas','refresh');
+			$this->session->set_flashdata('success', 'Data berhasil diupdate');
+			redirect('Admin/datakelas','refresh');
 		}
 		else{
-				echo "<script>alert('Records Update Successfully');</script>";
-				redirect('Admin/datakelas','refresh');
+			$this->session->set_flashdata('error', 'Data gagal diupdate');
+			redirect('Admin/datakelas','refresh');
 		}
-	}
+	// }
 }
 
 public function hapusdatakelas($id)
@@ -565,13 +568,13 @@ public function savedatasiswa()
 		$data['status']=$this->input->post('status');
 		$response=$this->Madmin->simpansiswa($data);
 		if($response==true){
-				$response=$this->Madmin->simpanusersiswa($data);
-				// echo "<script>alert('Records Saved Successfully');</script>";
-				redirect('Admin/datasiswa','refresh');
+			$response=$this->Madmin->simpanusersiswa($data);
+			$this->session->set_flashdata('success', 'Data berhasil disimpan');
+			redirect('Admin/datasiswa','refresh');
 		}
 		else{
-				// echo "<script>alert('Records Saved Failed');</script>";
-				redirect('Admin/datasiswa','refresh');
+			$this->session->set_flashdata('error', 'Data yang di input sudah ada');
+			redirect('Admin/datasiswa','refresh');
 		}
 	// }
 }
@@ -599,11 +602,11 @@ public function updatedatasiswa()
 		$status = $this->input->post('status');
 		$response=$this->Madmin->updatesiswa($id,$nisn,$nama_siswa,$kelas,$orangtua_siswa,$alamat_siswa,$status);
 		if($response==true){
-				// echo "<script>alert('Records Update Failed');</script>";
+			$this->session->set_flashdata('success', 'Data berhasil diupdate');
 				redirect('Admin/datasiswa','refresh');
 		}
 		else{
-				// echo "<script>alert('Records Update Successfully');</script>";
+			$this->session->set_flashdata('error', 'Data gagal diupdate');
 				redirect('Admin/datasiswa','refresh');
 		}
 	// }
@@ -638,8 +641,8 @@ public function formtambahqrcodesiswa()
 
 public function simpanqrcodesiswa()
 {
-	if($this->input->post('save'))
-	{
+	// if($this->input->post('save'))
+	// {
 	$nisn = $this->input->post('nisn');
 	$this->load->library('ciqrcode'); //pemanggilan library QR CODE
 
@@ -661,9 +664,16 @@ public function simpanqrcodesiswa()
 	$params['savename'] = FCPATH.$config['imagedir'].$image_name; //simpan image QR CODE ke folder assets/images/
 	$this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
 
-	$this->Madmin->simpanqrcodesiswa($nisn,$image_name); //simpan ke database
-	redirect('Admin/generateqrcodesiswa'); //redirect ke mahasiswa usai simpan data
+	$response = $this->Madmin->simpanqrcodesiswa($nisn,$image_name); //simpan ke database
+	if($response==true){
+		$this->session->set_flashdata('success', 'QrCode berhasil digenerate');
+		redirect('Admin/generateqrcodesiswa','refresh');
 	}
+	else{
+		$this->session->set_flashdata('error', 'QrCode sudah ada');
+		redirect('Admin/generateqrcodesiswa','refresh');
+	}
+	// }
 }
 
 public function hapusqrcodesiswa($id)
