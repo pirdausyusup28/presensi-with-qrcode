@@ -8,11 +8,22 @@
 <?php foreach($hadirs as $hs):?><?php endforeach?>
 <?php foreach($ijins as $is):?><?php endforeach?>
 <?php foreach($telats as $ts):?><?php endforeach?>
+<?php
+    if($this->session->userdata('role') == 'ots'){
+        $flag = "Siswa";
+    }else if($this->session->userdata('role') == 'guru'){
+        $flag = "Guru";
+    }else{
+        $flag = "Guru";
+    }
+?>
 
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="row">
     <div class="col-lg-12 col-md-4 order-1">
         <div class="row">
+        <?php
+    if($this->session->userdata('role') !== 'ots'){ ?>
         <div class="col-lg-4 col-md-4 col-4 mb-2">
             <div class="card">
             <div class="card-body">
@@ -37,6 +48,7 @@
             </div>
             </div>
         </div>
+        <?php }?>
         <div class="col-lg-4 col-md-4 col-4 mb-2">
             <div class="card">
             <div class="card-body">
