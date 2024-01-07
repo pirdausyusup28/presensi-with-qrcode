@@ -9,7 +9,9 @@
                 <div class="col-lg-12 col-md-12 col-6 mb-4">
                     <div class="card">
                         <div class="card-header">
-                        <a href="<?= base_url('admin/inputkehadiransiswa');?>"class="btn btn-warning btn-sm">Input Kehadiran</a><br><br>
+                            <?php if ($this->session->userdata('role') !== 'ots') { ?>
+                                <a href="<?= base_url('admin/inputkehadiransiswa');?>"class="btn btn-warning btn-sm">Input Kehadiran</a><br><br>
+                            <?php }?>
                         <h5>List Data Presensi Siswa</h5>
                         </div>
                         <div class="card-body">
