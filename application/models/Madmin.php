@@ -47,7 +47,24 @@ class Madmin extends CI_Model {
 	}
 
 	function cetakpresensi($tglawal, $tglakhir,$nip){
-		$query=$this->db->query("select a.nip,b.nama_guru,b.guru_mapel,a.tanggal,a.jam_masuk,a.jam_keluar from tbl_presensi a inner join tbl_guru b on a.nip = b.nip where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nip = '".$nip."' group by a.nip,
+		$query=$this->db->query("SELECT
+		a.nip,
+		b.nama_guru,
+		b.walikelas ,
+		a.tanggal,
+		a.jam_masuk,
+		a.jam_keluar,
+		c.tgl_kalender ,
+		c.deskripsi,
+		d.nama_kelas 
+	from
+		tbl_presensi a
+	left join tbl_guru b on
+		a.nip = b.nip
+	LEFT JOIN tbl_kelas d on 
+		b.walikelas = d.id_kelas 
+	LEFT join tbl_kalender c on
+		a.tanggal = c.tgl_kalender where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nip = '".$nip."' group by a.nip,
 		b.nama_guru,
 		a.tanggal order by a.tanggal asc");
 		return $query->result();
