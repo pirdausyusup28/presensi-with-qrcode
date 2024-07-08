@@ -374,6 +374,14 @@ class Madmin extends CI_Model {
 		$this->db->query($query);
 	}
 
+	function deleteqrcodesiswa($id)
+	{
+		$query="DELETE from tbl_generate_barcode_siswa WHERE id_barcode_siswa  = '".$id."' ";
+		$this->db->query($query);
+	}
+
+	
+
 	function resetpasswordguru($nip)
 	{
 		$pass = $nip.'ruhama';
@@ -413,7 +421,7 @@ class Madmin extends CI_Model {
 	public function cekqrcodesiswa($data)
     {
 		$this->db->where($data);
-        $query = $this->db->get('tbl_generate_barcode');
+        $query = $this->db->get('tbl_generate_barcode_siswa');
         return $query->num_rows() > 0;
     }
 
@@ -510,6 +518,16 @@ class Madmin extends CI_Model {
 		$query=$this->db->query("select count(*) totaltelatsiswa from tbl_presensi_siswa where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and flag !='2'");
 		return $query->result();
 	}	
+
+	function laporandataguru(){
+		$query=$this->db->query("select a.*, b.* from tbl_guru a left join tbl_kelas b on a.walikelas = b.id_kelas");
+		return $query->result();
+	}
+
+	function laporandatasiswa(){
+		$query=$this->db->query("select a.*, b.* from tbl_siswa a left join tbl_kelas b on a.kelas = b.id_kelas");
+		return $query->result();
+	}
 	
 
 }

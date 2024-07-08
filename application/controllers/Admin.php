@@ -135,6 +135,64 @@ class Admin extends CI_Controller {
 		$this->load->view('admin/footer_new');
 	}
 
+	public function laporandataguru(){
+		$data['data'] = $this->Madmin->laporandataguru();
+		$this->load->view('admin/header_new');
+		$this->load->view('admin/laporandataguru',$data);
+		$this->load->view('admin/footer_new');
+	}
+
+	public function cetakguru()
+	{ 
+		$this->load->library('pdfgenerator');
+        $data['data'] = $this->Madmin->laporandataguru();
+        $file_pdf = 'Laporan Data Guru';
+        $paper = 'A4';
+        $orientation = "portait";
+		$html = $this->load->view('admin/datagurupdf',$data, true);	    
+        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+	}
+
+	public function laporandatasiswa(){
+		$data['data'] = $this->Madmin->laporandatasiswa();
+		$this->load->view('admin/header_new');
+		$this->load->view('admin/laporandatasiswa',$data);
+		$this->load->view('admin/footer_new');
+	}
+
+	public function cetaksiswa()
+	{ 
+		$this->load->library('pdfgenerator');
+        $data['data'] = $this->Madmin->laporandatasiswa();
+        $file_pdf = 'Laporan Data Siswa';
+        $paper = 'A4';
+        $orientation = "portait";
+		$html = $this->load->view('admin/datasiswapdf',$data, true);	    
+        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+	}
+
+	public function laporanharilibur(){
+		$data['data'] = $this->Madmin->getdatakalender();
+		$this->load->view('admin/header_new');
+		$this->load->view('admin/laporanharilibur',$data);
+		$this->load->view('admin/footer_new');
+	}
+
+	public function cetaklibur()
+	{ 
+		$this->load->library('pdfgenerator');
+        $data['data'] = $this->Madmin->getdatakalender();
+        $file_pdf = 'Laporan Hari Libur';
+        $paper = 'A4';
+        $orientation = "portait";
+		$html = $this->load->view('admin/dataliburpdf',$data, true);	    
+        $this->pdfgenerator->generate($html, $file_pdf,$paper,$orientation);
+	}
+
+	
+
+	
+
 	public function approve($nip){
 		$datenya = date("Y-m-d");
 		// $query = $this->db->query("UPDATE tbl_presensi SET flag = 1 where tanggal = curdate() and nip = '".$nip."' ")->result();
