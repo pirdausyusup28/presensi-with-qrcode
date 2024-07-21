@@ -485,37 +485,143 @@ class Madmin extends CI_Model {
 
 	function gethadirguru()
 	{
-		$query=$this->db->query("select count(*) totalhadirguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag !='2'");
+		if ($this->session->userdata('role') == 'admin') {
+			$query=$this->db->query("select count(*) totalhadirguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag !='2'");	
+		}elseif ($this->session->userdata('role') == 'guru') {
+			$query=$this->db->query("select count(*) totalhadirguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and nip='".$this->session->userdata('username')."' and flag !='2'");	
+		}else{
+			$query=$this->db->query("select count(*) totalhadirguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and nip='".$this->session->userdata('username')."' and flag !='2'");	
+		}
+		
 		return $query->result();
 	}	
 
 	function getijinguru()
 	{
-		$query=$this->db->query("select count(*) totalijinguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag = '2'");
+		if ($this->session->userdata('role') == 'admin') {
+			$query=$this->db->query("select count(*) totalijinguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag = '2'");
+		}elseif ($this->session->userdata('role') == 'guru') {
+			$query=$this->db->query("select count(*) totalijinguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and nip='".$this->session->userdata('username')."' and flag = '2'");
+		}else{
+			$query=$this->db->query("select count(*) totalijinguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and nip='".$this->session->userdata('username')."' and flag = '2'");
+		}
 		return $query->result();
 	}	
 
 	function gettelatguru()
 	{
-		$query=$this->db->query("select count(*) totaltelatguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and flag !='2'");
+		if ($this->session->userdata('role') == 'admin') {
+			$query=$this->db->query("select count(*) totaltelatguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and flag !='2'");
+		}elseif ($this->session->userdata('role') == 'guru') {
+			$query=$this->db->query("select count(*) totaltelatguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and nip='".$this->session->userdata('username')."' and flag !='2'");
+		}else{
+			$query=$this->db->query("select count(*) totaltelatguru from tbl_presensi where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and nip='".$this->session->userdata('username')."' and flag !='2'");
+		}
 		return $query->result();
 	}	
 
 	function gethadirsiswa()
 	{
-		$query=$this->db->query("select count(*) totalhadirsiswa from tbl_presensi_siswa where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag !='2'");
+		if ($this->session->userdata('role') == 'admin') {
+			$query=$this->db->query("SELECT
+			COUNT(a.nisn) as totalhadirsiswa
+			from
+				tbl_presensi_siswa a
+			left join tbl_siswa b on
+				a.nisn = b.nisn
+			left join tbl_guru c on b.kelas = c.walikelas
+			where MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.flag !='2'");
+		}elseif ($this->session->userdata('role') == 'guru') {
+			$query=$this->db->query("SELECT
+			COUNT(a.nisn) as totalhadirsiswa
+			from
+				tbl_presensi_siswa a
+			left join tbl_siswa b on
+				a.nisn = b.nisn
+			left join tbl_guru c on b.kelas = c.walikelas
+			where c.nip='".$this->session->userdata('username')."' and MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.flag !='2'
+			GROUP by c.nip");
+		}elseif ($this->session->userdata('role') == 'ots'){
+			$query=$this->db->query("SELECT
+			COUNT(a.nisn) as totalhadirsiswa
+			from
+				tbl_presensi_siswa a
+			left join tbl_siswa b on
+				a.nisn = b.nisn
+			left join tbl_guru c on b.kelas = c.walikelas
+			where a.nisn='".$this->session->userdata('username')."' and MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.flag !='2'
+			GROUP by a.nisn");
+		}
 		return $query->result();
 	}	
 
 	function getijinsiswa()
 	{
-		$query=$this->db->query("select count(*) totalijinsiswa from tbl_presensi_siswa where MONTH(tanggal) = MONTH(CURRENT_DATE()) and flag = '2'");
+		if ($this->session->userdata('role') == 'admin') {
+			$query=$this->db->query("SELECT
+				COUNT(a.nisn) as totalijinsiswa
+				from
+					tbl_presensi_siswa a
+				left join tbl_siswa b on
+					a.nisn = b.nisn
+				left join tbl_guru c on b.kelas = c.walikelas
+				where MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.flag ='2'");
+		}elseif ($this->session->userdata('role') == 'guru') {
+			$query=$this->db->query("SELECT
+				COUNT(a.nisn) as totalijinsiswa
+				from
+					tbl_presensi_siswa a
+				left join tbl_siswa b on
+					a.nisn = b.nisn
+				left join tbl_guru c on b.kelas = c.walikelas
+				where c.nip='".$this->session->userdata('username')."' and MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.flag ='2'
+				GROUP by c.nip");
+		}elseif ($this->session->userdata('role') == 'ots'){
+			$query=$this->db->query("SELECT
+				COUNT(a.nisn) as totalijinsiswa
+				from
+					tbl_presensi_siswa a
+				left join tbl_siswa b on
+					a.nisn = b.nisn
+				left join tbl_guru c on b.kelas = c.walikelas
+				where a.nisn='".$this->session->userdata('username')."' and MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.flag ='2'
+				GROUP by a.nisn");
+		}
 		return $query->result();
 	}	
 
 	function gettelatsiswa()
 	{
-		$query=$this->db->query("select count(*) totaltelatsiswa from tbl_presensi_siswa where MONTH(tanggal) = MONTH(CURRENT_DATE()) and jam_masuk > '08:00:00' and flag !='2'");
+		if ($this->session->userdata('role') == 'admin') {
+			$query=$this->db->query("SELECT
+				COUNT(a.nisn) as totaltelatsiswa
+				from
+					tbl_presensi_siswa a
+				left join tbl_siswa b on
+					a.nisn = b.nisn
+				left join tbl_guru c on b.kelas = c.walikelas
+				where MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.jam_masuk > '08:00:00' and a.flag !='2'");
+		}elseif ($this->session->userdata('role') == 'guru') {
+			$query=$this->db->query("SELECT
+				COUNT(a.nisn) as totaltelatsiswa
+				from
+					tbl_presensi_siswa a
+				left join tbl_siswa b on
+					a.nisn = b.nisn
+				left join tbl_guru c on b.kelas = c.walikelas
+				where c.nip='".$this->session->userdata('username')."' and MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.jam_masuk > '08:00:00' and a.flag !='2'
+				GROUP by c.nip");
+		}elseif ($this->session->userdata('role') == 'ots'){
+			$query=$this->db->query("SELECT
+				COUNT(a.nisn) as totaltelatsiswa
+				from
+					tbl_presensi_siswa a
+				left join tbl_siswa b on
+					a.nisn = b.nisn
+				left join tbl_guru c on b.kelas = c.walikelas
+				where a.nisn='".$this->session->userdata('username')."' and MONTH(a.tanggal) = MONTH(CURRENT_DATE()) and a.jam_masuk > '08:00:00' and a.flag !='2'
+				GROUP by a.nisn");
+		}
 		return $query->result();
 	}	
 

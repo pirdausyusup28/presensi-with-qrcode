@@ -339,8 +339,9 @@ public function resetpasswordsiswa($nisn)
 
 	public function formtambahqrcode()
 	{
+		$data['nip'] = $this->Madmin->getdatagurulist();
 		$this->load->view('admin/header_new');
-		$this->load->view('admin/viewtambahgenerateqrcode');
+		$this->load->view('admin/viewtambahgenerateqrcode',$data);
 		$this->load->view('admin/footer_new');
 	}
 
@@ -692,8 +693,9 @@ public function generateqrcodesiswa(){
 
 public function formtambahqrcodesiswa()
 {
+	$data['nisn'] = $this->Madmin->getdatasiswa();
 	$this->load->view('admin/header_new');
-	$this->load->view('admin/viewtambahgenerateqrcodesiswa');
+	$this->load->view('admin/viewtambahgenerateqrcodesiswa',$data);
 	$this->load->view('admin/footer_new');
 }
 

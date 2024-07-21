@@ -17,7 +17,12 @@
                                     <div class="">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">NIP</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="nip" name="nip" placeholder="">
+                                            <!-- <input type="text" class="form-control" id="nip" name="nip" placeholder=""> -->
+                                             <select name="nip" id="nip" class="form-control">
+                                                <?php foreach($nip as $v):?>
+                                                    <option value="<?= $v->nip?>"><?= $v->nip?> - <?= $v->nama_guru?></option>
+                                                <?php endforeach?>
+                                             </select>
                                         </div>
                                     </div><br>
                                     <div class="">

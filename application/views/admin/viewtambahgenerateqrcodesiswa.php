@@ -17,7 +17,12 @@
                                     <div class="">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">NISN</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="nisn" name="nisn" placeholder="">
+                                            <!-- <input type="text" class="form-control" id="nisn" name="nisn" placeholder=""> -->
+                                            <select name="nisn" id="nisn" class="form-control">
+                                                <?php foreach($nisn as $v):?>
+                                                    <option value="<?= $v->nisn?>"><?= $v->nisn?> - <?= $v->nama_siswa?></option>
+                                                <?php endforeach?>
+                                             </select>
                                         </div>
                                     </div><br>
                                     <div class="">
