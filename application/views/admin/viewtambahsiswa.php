@@ -17,7 +17,7 @@
                                     <div class="">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">NISN</label>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" id="nisn" name="nisn" placeholder="">
+                                            <input type="text" class="form-control" id="nisn" onchange="checkNisnLength()" name="nisn" placeholder="">
                                         </div>
                                     </div>
                                     <div class="">
@@ -75,6 +75,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    function checkNisnLength() {
+        var nisn = document.getElementById('nisn').value;
+        if (nisn.length!= 10) {
+            alert('NIP harus 10 karakter');
+            return false;
+        }
+    }
     function showConfirmation() {
         Swal.fire({
             title: 'Konfirmasi',

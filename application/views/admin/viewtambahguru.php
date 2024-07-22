@@ -17,7 +17,7 @@
                                     <div class="">
                                         <label for="inputEmail3" class="col-sm-3 col-form-label">NIP</label>
                                         <div class="col-sm-12">
-                                            <input type="text" class="form-control" id="nip" name="nip" placeholder="" required>
+                                            <input type="text" class="form-control" id="nip" onchange="checkNipLength()" name="nip" placeholder="" required>
                                         </div>
                                     </div>
                                     <div class="">
@@ -71,6 +71,13 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+    function checkNipLength() {
+        var nip = document.getElementById('nip').value;
+        if (nip.length!= 18) {
+            alert('NIP harus 18 karakter');
+            return false;
+        }
+    }
     function showConfirmation() {
         Swal.fire({
             title: 'Konfirmasi',
