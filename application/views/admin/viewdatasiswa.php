@@ -47,7 +47,7 @@
                                                 <td><?= $v->nama_kelas ?></td>
                                                 <td><?= $v->orangtua_siswa ?></td>
                                                 <td><?= $v->alamat_siswa ?></td>
-                                                <td><?= $v->status ?></td>
+                                                <td><?= ($v->status == 0)?"Non Aktif":"Aktif" ?></td>
                                                 <td>
                                                     <a href="<?= base_url('Admin/editsiswa/'); ?><?= $v->id_siswa; ?>" class="btn btn-warning btn-sm">Edit</a>
                                                     <a href="<?= base_url('Admin/hapusdatasiswa/'); ?><?= $v->id_siswa; ?>" class="btn btn-danger btn-sm hapus-link">Hapus</a>

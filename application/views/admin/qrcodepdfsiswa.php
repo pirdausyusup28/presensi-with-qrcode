@@ -9,7 +9,7 @@
 
 </head>
 <body>
-	<table class="table table-bordered text-center" style="width:50%">
+	<table class="table table-bordered text-center">
     <?php foreach($qr as $v){?>
 		<tbody>
 			<tr style="background-color:green;color:white">
