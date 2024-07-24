@@ -6,12 +6,13 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
-<table>
-<tr>
-<th style="width:100px;"><img src="<?= base_url(); ?>assets/img/logo pesantren.png" alt="" class="" style="width:100%;"></th>
-<th style="width:100px;"><p style="text-align:center;">SDIT Ruhama Depok</p></th>
-</tr>
-</table>
+<center><img src="<?= base_url(); ?>assets/logo.jpg" alt="" class="" style="width:400px;height:100px"></center>
+<!-- <table> -->
+<!-- <tr> -->
+<!-- <th style="width:100px;"><img src="<?= base_url(); ?>assets/logo.jpg" alt="" class="" style="width:100%;"></th> -->
+<!-- <th style="width:100px;"><p style="text-align:center;">SDIT Ruhama Depok</p></th> -->
+<!-- </tr> -->
+<!-- </table> -->
 <hr size="20px">
 <br>
 <center><p>Laporan Presensi Harian Siswa</p></center>
