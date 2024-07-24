@@ -205,13 +205,6 @@
               <?php if($this->session->userdata('role') == 'guru' || $this->session->userdata('role') == 'admin'){?>
                 <li class="menu-item">
                   <a
-                    href="<?= base_url('admin/laporandataguru');?>"
-                    class="menu-link">
-                    <div data-i18n="Pricing">Laporan Data Guru</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a
                     href="<?= base_url('admin/laporandatasiswa');?>"
                     class="menu-link">
                     <div data-i18n="Pricing">Laporan Data Siswa</div>
@@ -228,7 +221,7 @@
                   <a
                     href="<?= base_url('admin/laporanpresensi');?>"
                     class="menu-link">
-                    <div data-i18n="Landing">Laporan Presensi Guru</div>
+                    <div data-i18n="Landing">Laporan Presensi Saya</div>
                   </a>
                 </li>
                 <li class="menu-item">

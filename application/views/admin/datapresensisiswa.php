@@ -67,7 +67,7 @@
                                                     <?php if($this->session->userdata('role') !== 'ots'){?>
                                                         <a href="<?= base_url('Admin/approvesiswa/') . $v->nisn ?>" class="btn btn-primary btn-sm approve-link">Approve</a>
                                                     <?php } ?>
-                                                        <a href="<?= base_url('assets/buktisakit/') . $v->gambar ?>" target="_blank">Lihat Dokumen Upload</a>
+                                                        <!-- <a href="<?= base_url('assets/buktisakit/') . $v->gambar ?>" target="_blank">Lihat Dokumen Upload</a> -->
                                                 </td>
                                             </tr>
                                         <?php endforeach ?>

@@ -13,7 +13,7 @@
                         <div class="card-body">
                             <form id="updateForm" method="post" action="<?= base_url() ?>Admin/updateakun">
                                 <div class="">
-                                    <label for="inputPassword3" class="col-sm-3 col-form-label">Nama Pengguna</label>
+                                    <label for="inputPassword3" class="col-sm-3 col-form-label">NIP</label>
                                     <div class="col-sm-9">
                                         <input type="hidden" class="form-control" id="id" name="id" placeholder="" value="<?= $v->id; ?>">
                                         <input type="text" class="form-control" id="username" name="username" placeholder="" value="<?= $v->username; ?>">
