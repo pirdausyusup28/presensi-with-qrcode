@@ -476,9 +476,9 @@ class Madmin extends CI_Model {
 	}
 
 	function cetakpresensisiswa($tglawal, $tglakhir,$nisn){
-		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn,
-		b.nama_siswa,c.nama_kelas,
-		a.tanggal order by a.tanggal asc");
+		// echo "select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn, b.nama_siswa,c.nama_kelas, a.tanggal order by a.tanggal asc";
+		// die();
+		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn, b.nama_siswa,c.nama_kelas, a.tanggal order by a.tanggal asc");
 		return $query->result();
 	}
 

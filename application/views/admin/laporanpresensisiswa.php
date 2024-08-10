@@ -35,7 +35,7 @@
 								</div>
 							</div><br>
 							<button type="submit" class="btn btn-primary btn-sm">Cetak</button>
-							<button type="submit" class="btn btn-danger btn-sm">Batal</button>
+							<button type="button" class="btn btn-danger btn-sm">Batal</button>
 						</form>
                         </div>
                         <div class="card-body">
