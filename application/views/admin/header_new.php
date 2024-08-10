@@ -210,6 +210,16 @@
                     <div data-i18n="Pricing">Laporan Data Siswa</div>
                   </a>
                 </li>
+                <?php if($this->session->userdata('role') == 'admin'):?>
+                  <li class="menu-item">
+                    <a
+                      href="<?= base_url('admin/laporandataguru');?>"
+                      class="menu-link">
+                      <div data-i18n="Pricing">Laporan Data Guru</div>
+                    </a>
+                  </li>
+                <?php endif?>
+
                 <li class="menu-item">
                   <a
                     href="<?= base_url('admin/laporanharilibur');?>"

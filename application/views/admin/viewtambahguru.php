@@ -47,6 +47,15 @@
 											</select>
                                         </div>
                                     </div>
+                                    <div class="">
+                                        <label for="inputPassword3" class="col-sm-3 col-form-label">Status</label>
+                                        <div class="col-sm-12">
+                                            <select name="status" class="form-control" id="status">
+                                                <option value="0">Non Aktif</option>
+                                                <option value="1">Aktif</option>
+											</select>
+                                        </div>
+                                    </div>
 									<!-- <div class="">
                                         <label for="inputPassword3" class="col-sm-3 col-form-label">Mata Pelajaran</label>
                                         <div class="col-sm-12">

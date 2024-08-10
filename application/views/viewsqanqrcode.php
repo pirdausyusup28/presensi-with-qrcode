@@ -109,7 +109,6 @@
 											<th>No</th>
 											<th>NIP</th>
 											<th>Nama</th>
-											<th>Guru MaPel</th>
 											<th>Tanggal</th>
 											<th>Jam Masuk</th>
 											<th>Jam Keluar</th>
@@ -118,37 +117,51 @@
 									</thead>
 									<tbody>
 										<?php 
-											$no=1; foreach ($presensi as $p) { 
-											$jm = date_create($p->jam_masuk);
-											$jmm =  date_format($jm,"H:i:s");
-								
-											$jk = date_create($p->jam_keluar);
-											$jkk =  date_format($jk,"H:i:s");
-								
-											$awal  = date_create($p->jam_keluar);
-											$akhir = date_create($p->jam_masuk); // waktu sekarang
-											$diff  = date_diff( $awal, $akhir );
-											if($diff->h >= 8){
-												$ket = "<span class='badge badge-warning'>Jam Kerja Lebih</span>";
-											}elseif($diff->h <= 4){
-												$ket = "<span class='badge badge-danger'>Izin</span>";
-												$color = "color:red";
-											}elseif($diff->h == 8){
-												$ket = "<span class='badge badge-success'>HADIR</span>";
-											}
-										?>
+											$no=1; foreach ($presensi as $p):
+												$jm = date_create($p->jam_masuk);
+												$jmm =  date_format($jm,"H:i:s");
+									  
+												$jk = date_create($p->jam_keluar);
+												$jkk =  date_format($jk,"H:i:s");
+									  
+												$awal  = date_create($p->jam_keluar);
+												$akhir = date_create($p->jam_masuk); // waktu sekarang
+												$diff  = date_diff( $awal, $akhir );
+												$tlk   = $diff->h - 9;
+												$tlkk = ($tlk > 1 ? $tlk : 0);
+									  
+												// if ($p->flag == '0') {
+												  if($p->jam_masuk > "06:45:00"){
+													$tjknya = $diff->h - 9;
+													$ket = "<span class='badge badge-warning' style='background-color:red'>Telat</span>";
+													$tjk = "$diff->h jam, $diff->i Menit";
+												  }elseif($p->jam_keluar < "14:00:00"){
+													$tjknya = $diff->h - 9;
+													$ket = "<span class='badge badge-danger'>Jam Pulang Lebih Awal</span>";
+													$tjk = "$diff->h jam, $diff->i Menit";
+												  }elseif($p->jam_keluar > "15:00:00"){
+													$tjknya = $diff->h - 9;
+													$ket = "Sudah Absen Pulang";
+													$tjk = "$diff->h jam, $diff->i Menit";
+												  }else{
+													$ket = "Sudah Absen Pulang";
+													$tjk = "";
+												  }
+												// }else{
+												//   $ket="";
+												//   $tjk = "";
+												// }
+											  ?> 
 											<tr>
 												<td><?= $no++ ?></td>
 												<td><?= $p->nip ?></td>
 												<td><?= $p->nama_guru ?></td>
-												<td><?= $p->guru_mapel ?></td>
 												<td><?= $p->tanggal ?></td>
 												<td><?= $jmm ?></td>
 												<td style=<?= $color;?>><?= $jkk ?></td>
 												<td><?= $ket?></td>
 											</tr>
-										<?php }?>
-									</tbody>
+											<?php endforeach ?> </tbody>
 								</table>
 							</div>
 						</div>

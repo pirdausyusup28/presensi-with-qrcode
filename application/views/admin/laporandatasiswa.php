@@ -34,7 +34,7 @@
                                         <td><?= $d->nama_kelas?></td>
                                         <td><?= $d->orangtua_siswa?></td>
                                         <td><?= $d->alamat_siswa?></td>
-                                        <td><?= $d->status?></td>
+                                        <td><?= ($d->status == '1')?"Aktif":"Non Aktif"?></td>
                                     </tr>
                                     <?php endforeach?>
                                 </tbody>

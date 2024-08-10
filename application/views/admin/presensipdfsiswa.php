@@ -45,8 +45,6 @@
 <th>JAM MASUK</th>
 <th>JAM KELUAR</th>
 <th>KETERANGAN</th>
-<!-- <th>TOTAL JAM KERJA</th> -->
-<!-- <th>TOTAL JAM LEMBUR</th> -->
 </tr>
 </thead>
 <tbody>
@@ -63,17 +61,21 @@
 	$diff  = date_diff( $awal, $akhir );
 	$tlk   = $diff->h - 8;
 	$tlkk = ($tlk > 1 ? $tlk : 0);
-	if($diff->h >= 8){
-		$tjknya = $diff->h - 8;
-		$ket = "<span class='badge badge-warning'>Jam Kerja Lebih</span>";
-		$tjk = "<span class='badge badge-warning'>total $diff->h jam kerja dan Jam Kerja lebih  $tjknya</span>";
-	}elseif($diff->h <= 8){
-		$tjknya = $diff->h - 8;
-		$ket = "<span class='badge badge-danger'>Jam Kerja Kurang</span>";
-		$tjk = "<span class='badge badge-danger'>total $diff->h jam kerja dan Jam Kerja $tjknya</span>";
-	}elseif($diff->h == 8){
-		$ket = "<span class='badge badge-success'>Jam Kerja Pas</span>";
-		$tjk = "<span class='badge badge-success'>Jam Kerja Pas 8 jam</span>";
+
+	if ($p->flag == '0') {
+		if($p->jam_masuk > "07:00:00"){
+			$tjknya = $diff->h - 9;
+			$ket = "<span class='badge badge-warning'>Telat</span>";
+		}elseif($p->jam_keluar < "14:00:00"){
+			$tjknya = $diff->h - 9;
+			$ket = "<span class='badge badge-danger'>Jam Pulang Lebih Awal</span>";
+		}elseif($p->jam_keluar > "14:00:00"){
+			$ket = "";
+		}else{
+			$ket = "";
+		}
+	}else{
+		$ket="";
 	}
 	?>
 
@@ -82,9 +84,16 @@
 	<td><?= $p->tanggal ?></td>
 	<td><?= $jmm ?></td>
 	<td><?= $jkk ?></td>
-	<td><?= $ket?></td>
-	<!-- <td><?= $tjk ?></td>
-	<td><?= $tlkk ?></td> -->
+	<td>
+		<?php if($p->flag == '0'){
+			echo "<span class='badge badge-success'>Hadir</span>";
+		}elseif($p->flag == '1'){
+			echo "<span class='badge badge-danger'>Alfa</span>";
+		}elseif($p->flag == '2'){
+			echo "<span class='badge badge-primary'>Izin</span>";
+		}elseif($p->flag == '3'){
+			echo "<span class='badge badge-primary'>Sakit</span>";
+		} ?> <?= $ket?></td>
 	</tr>
 	<?php endforeach ?>
 	</tbody>

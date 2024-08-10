@@ -261,6 +261,7 @@ public function savedataguru()
 	$data['nama_guru']=$this->input->post('nama_guru');
 	$data['jenis_kelamin']=$this->input->post('jenis_kelamin');
 	$data['walikelas']=$this->input->post('walikelas');
+	$data['status']=$this->input->post('status');
 	$response=$this->Madmin->saverecords($data);
 	if($response==true){
 		$response=$this->Madmin->simpanuserguru($data);
@@ -292,7 +293,8 @@ public function updatedataguru()
 		$nama_guru = $this->input->post('nama_guru');
 		$jenis_kelamin = $this->input->post('jenis_kelamin');
 		$walikelas =$this->input->post('walikelas');
-		$response=$this->Madmin->updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas);
+		$status =$this->input->post('status');
+		$response=$this->Madmin->updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas,$status);
 		if($response==true){
 				$this->session->set_flashdata('success', 'Data berhasil diupdate');
 				redirect('Admin/dataguru','refresh');

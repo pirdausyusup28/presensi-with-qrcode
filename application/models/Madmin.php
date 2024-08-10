@@ -56,7 +56,8 @@ class Madmin extends CI_Model {
 		a.jam_keluar,
 		c.tgl_kalender ,
 		c.deskripsi,
-		d.nama_kelas 
+		d.nama_kelas, 
+		a.flag
 	from
 		tbl_presensi a
 	left join tbl_guru b on
@@ -64,7 +65,7 @@ class Madmin extends CI_Model {
 	LEFT JOIN tbl_kelas d on 
 		b.walikelas = d.id_kelas 
 	LEFT join tbl_kalender c on
-		a.tanggal = c.tgl_kalender where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nip = '".$nip."' group by a.nip,
+		a.tanggal = c.tgl_kalender where  a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nip = '".$nip."' group by a.nip,
 		b.nama_guru,
 		a.tanggal order by a.tanggal asc");
 		return $query->result();
@@ -299,9 +300,9 @@ class Madmin extends CI_Model {
 		return $query->result();
 	}
 
-	function updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas)
+	function updaterecords($id,$nip,$nama_guru,$jenis_kelamin,$walikelas,$status)
 	{
-		$query=" UPDATE tbl_guru SET nip = '".$nip."',nama_guru = '".$nama_guru."',jenis_kelamin = '".$jenis_kelamin."' ,walikelas = '".$walikelas."' WHERE id_guru = '".$id."'";
+		$query=" UPDATE tbl_guru SET nip = '".$nip."',nama_guru = '".$nama_guru."',jenis_kelamin = '".$jenis_kelamin."' ,walikelas = '".$walikelas."',status = '".$status."' WHERE id_guru = '".$id."'";
 		$this->db->query($query);
 		if ($this->db->affected_rows() > 0) {
 			return true;
@@ -478,7 +479,7 @@ class Madmin extends CI_Model {
 	function cetakpresensisiswa($tglawal, $tglakhir,$nisn){
 		// echo "select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where flag = 1  and a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn, b.nama_siswa,c.nama_kelas, a.tanggal order by a.tanggal asc";
 		// die();
-		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn, b.nama_siswa,c.nama_kelas, a.tanggal order by a.tanggal asc");
+		$query=$this->db->query("select a.nisn,b.nama_siswa,b.kelas,a.tanggal,a.jam_masuk,a.jam_keluar,c.nama_kelas,a.flag from tbl_presensi_siswa a left join tbl_siswa b on a.nisn = b.nisn left join tbl_kelas c on b.kelas = c.id_kelas where a.tanggal between '".$tglawal."' and '".$tglakhir."' and a.nisn = '".$nisn."' group by a.nisn, b.nama_siswa,c.nama_kelas, a.tanggal order by a.tanggal asc");
 		return $query->result();
 	}
 
